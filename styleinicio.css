@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+.navbar {
+    font-size: 20px;
+    font-weight: 600;
+    display: flex; /* Torna os elementos filhos flexíveis */
+    justify-content: space-between; /* Distribui o espaço entre os elementos */
+    align-items: center; /* Alinha os elementos verticalmente ao centro */
+    padding: 10px 20px; /* Adicione preenchimento conforme necessário */
+    background-color: transparent; /* Defina a cor de fundo desejada */
+    transition: background-color 0.3s ease; /* Adiciona transição suave */
+    position: fixed;
+    width: 100vw;
+    z-index: 1;
+}
+
+
+/* Estilo da navbar quando está com cor */
+.navbar.colored {
+    background-color: #fff; /* Altere a cor conforme necessário */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adicione sombra se desejar */
+}
+
+
+/* Outros estilos para a navbar */
+#icones {
+    display: block;
+    margin-left: 17em;
+    
+}
+
+#icones a {
+    margin-right: 5em; /* Adicione um valor conforme necessário */
+    text-decoration: none;
+    color: #000;
+}
+
+#icones a:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+
+#icones img {
+    width: 300px;
+    height: 200px;
+    margin-right: 15em; /* Adicione um valor conforme necessário */
+}
+
+/* Estilos de outras seções da página */
+.conteudo {
+    /* Estilos para outras seções da página */
+}
+#icones{
+    display: flex;
+    justify-content: space-around;
+    width: 700px;
+    align-items: center;
+    color: white;
+}
+
+.imagem {
+    position: fixed;
+    z-index: -1;
+}
+
+#conteudo1 {
+    height: 50em;
+    background-image: url(img/architecture-1477103_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    background-attachment: fixed; /* Torna a imagem de fundo fixa */
+}
+.card {
+    margin-left: 350px;
+    width: 190px;
+    height: 254px;
+    border-radius: 20px;
+    background: #f5f5f5;
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+   }
+   
+   .card-details {
+    color: black;
+    height: 100%;
+    gap: .5em;
+    display: grid;
+    place-content: center;
+   }
+   
+   .card-button {
+    text-align: center;
+    transform: translate(-50%, 125%);
+    width: 60%;
+    border-radius: 1rem;
+    border: none;
+    background-color: #FF9A00;
+    color: #fff;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    opacity: 0;
+    transition: 0.3s ease-out;
+    text-decoration: none;
+   }
+   a{
+    text-decoration: none;
+   }
+   
+   .text-body {
+    color: rgb(134, 134, 134);
+   }
+   
+   /*Text*/
+   .text-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: "Noto Sans", sans-serif;
+   }
+   
+   /*Hover*/
+   .card:hover {
+    border-color: #FF9A00;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+   }
+   
+   .card:hover .card-button {
+    transform: translate(-50%, 50%);
+    opacity: 1;
+   }
+#conteudo2{
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#titulo{
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+    
+
+}
+#texto{
+    width: 500px;
+    
+    padding-bottom: 100px;
+    text-align: center;
+    font-size: 20px;
+}
+
+::selection {
+    background-color: #FF9A00;
+}
+
+h1{
+    font-size: 40px;
+    font-family: "Noto Sans", sans-serif;
+    padding-top: 100px;
+}
+/* Estilo para a div onde o vídeo será incorporado */
+#fts-container {
+    background-color: #050A30;
+  height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo para o vídeo */
+#fts {
+    width: 90%; /* Reduzir a largura para 90% da tela */
+    height: auto; /* Altura automática para manter a proporção */
+    margin-right: 0; /* Remover a margem direita */
+    margin-bottom: 50px; /* Adicionar margem inferior de 50px */
+}
+
+/* Estilo para a mensagem */
+#mensagem {
+    font-size: 24px; /* Tamanho da fonte da mensagem */
+    color: #fff; /* Cor do texto da mensagem */
+    margin: 50px; /* Adicionar margem de 50px em todas as direções */
+    padding-bottom: 20px; /* Reduzir o espaço inferior */
+}
+.underline::after {
+    content: "";
+    display: block;
+    width: 50%; /* Ajuste a largura do traço conforme necessário */
+    height: 2px; /* Ajuste a altura do traço conforme necessário */
+    background-color: black; /* Cor do traço */
+}
+ul {
+    list-style: none;
+  }
+  
+  .example-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 6em;
+  }
+  .example-2 .icon-content {
+    margin-right: 2em;
+    position: relative;
+  }
+  .example-2 .icon-content .tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 5px;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+  .example-2 .icon-content:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    top: -50px;
+  }
+  .example-2 .icon-content a {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #4d4d4d;
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+  }
+  .example-2 .icon-content a:hover {
+    box-shadow: 3px 2px 45px 0px rgb(0 0 0 / 12%);
+  }
+  .example-2 .icon-content a svg {
+    position: relative;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+  }
+  .example-2 .icon-content a:hover {
+    color: white;
+  }
+  .example-2 .icon-content a .filled {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: #000;
+    transition: all 0.3s ease-in-out;
+  }
+  .example-2 .icon-content a:hover .filled {
+    height: 100%;
+  }
+  
+  .example-2 .icon-content a[data-social="linkedin"] .filled,
+  .example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
+    background-color: #0274b3;
+  }
+  
+  .example-2 .icon-content a[data-social="github"] .filled,
+  .example-2 .icon-content a[data-social="github"] ~ .tooltip {
+    background-color: #24262a;
+  }
+  .example-2 .icon-content a[data-social="instagram"] .filled,
+  .example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
+    background: linear-gradient(
+      45deg,
+      #405de6,
+      #5b51db,
+      #b33ab4,
+      #c135b4,
+      #e1306c,
+      #fd1f1f
+    );
+  }
+  .example-2 .icon-content a[data-social="youtube"] .filled,
+  .example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
+    background-color: #ff0000;
+  }
+  
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 0; /* Remover a margem superior */
+    position: relative; /* Manter o posicionamento relativo */
+    z-index: 1; /* Definir uma z-index maior para sobrepor o conteúdo */
+}
+
+/* Estilo dos links do footer */
+footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+@media (min-width: 768px) {
+    /* Estilos para telas maiores que 767px (PC) */
+    #fts-container {
+        grid-template-columns: 1fr 1fr; /* Dividir em duas colunas */
+    }
+    
+    #fts {
+        justify-self: end; /* Alinhar o vídeo à direita */
+        width: 80%; /* Reduzir a largura para 80% da tela */
+        margin-right: 6px; /* Adicionar margem direita de 50px */
+        margin-bottom: 0; /* Remover a margem inferior */
+    }
+    
+    #mensagem {
+        justify-self: start; /* Alinhar a mensagem à esquerda */
+        font-size: 24px; /* Manter o tamanho da fonte */
+        margin-left: 150px; /* Adicionar margem esquerda de 50px */
+        margin-bottom: 200px; /* Remover a margem inferior */
+    }
+}
+
+@media (max-width: 767px) {
+    /* Estilos para telas menores ou iguais a 767px (Celular) */
+    #fts {
+        width: 100%; /* Ocupar toda a largura disponível */
+        margin-left: 0; /* Remover a margem esquerda */
+    }
+    
+    #mensagem {
+        font-size: 20px; /* Reduzir o tamanho da fonte */
+        margin: 20px; /* Adicionar margem em todas as direções */
+    }
+}
