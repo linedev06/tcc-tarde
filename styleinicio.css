@@ -4,7 +4,23 @@ body{
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
+    position: relative; /* Para garantir que o footer fique fixo no final da página */
 }
+
+/* Estilo do footer */
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color:  #9b5d00;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    z-index: 100; /* Ajuste o z-index conforme necessário */
+}
+
+
 
 .navbar {
     z-index: 1000;
@@ -186,16 +202,21 @@ h1{
   flex-wrap: wrap;
   justify-content: center;
 }
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
 
 .image-container {
   display: flex;
-  margin-top: 250px;
+  height: -2000px; /* Alterado para um valor negativo */
+  margin-top: 200px;
 }
 
 .image-container img {
   width: 600px;
   height: auto;
-  margin: 10px;
+  margin: 0px;
   transition: transform 0.3s, filter 0.3s; /* Adiciona transição suave para a transformação e filtro */
 }
 
@@ -205,16 +226,31 @@ h1{
   filter: brightness(1.2); /* Clareia um pouco a imagem */
 }
 
-#medio {
-  width: 550px;
+.lateral-imagem {
+  border-radius: 50px;
+  padding-top: 400px;
+  margin: 0 100px;
+  margin-top: 100px; /* Alterado para um valor menor */
+}
+
+.lateral-imagem img {
+  width: 200px;
   height: auto;
-  margin: 10px;
+  transition: transform 0.3s, filter 0.3s; /* Adiciona transição suave para a transformação e filtro */
+}
+
+/* Efeito de hover para as imagens laterais */
+.lateral-imagem:hover img {
+  transform: scale(1.1); /* Aumenta a escala da imagem em 10% */
+  filter: brightness(1.0); /* Clareia um pouco a imagem */
 }
 
 #rico {
-  width: 1120px;
+  margin-right: -8px;
+  width: 1149px;
   height: 600px;
-  transition: transform 0.3s, filter 0.3s; /* Adiciona transição suave para a transformação e filtro */
+  transition: transform 0.3s, filter 0.3s; /* Adiciona transição suave para a transformação e filtro */
+  padding-bottom: 300px;
 }
 
 /* Efeito de hover para #rico */
@@ -416,3 +452,4 @@ footer a {
   object-fit: cover;
  
 }
+
