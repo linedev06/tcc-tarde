@@ -95,7 +95,7 @@
   </div>
 
   <div id="tudo1">
-    <h1 style="font-family: 'Roboto', sans-serif; color: #FF9A00; margin-left: 340px; margin-right: 250px;">O que nós da Tekton buscamos?</h1>
+    <h1 style="font-family: 'Roboto', sans-serif; color: #FF9A00; margin-left: 340px; margin-right: 250px;">O que nós da Tektõn buscamos?</h1>
     <p style="font-size: 18px; line-height: 1.6; color: #333; margin-left: 340px; margin-right: 320px;">Nosso compromisso é proporcionar conforto e qualidade de vida para você e sua família. Nossos empreendimentos são cuidadosamente planejados, com acabamentos diferenciados e foco na sustentabilidade, garantindo não apenas belos espaços, mas também ambientes que se preocupam com o meio ambiente e seu bolso. Aqui na Tekton, você encontrará muito mais do que projetos, encontrará seu futuro. Tudo em nossa empresa é projetado para tornar sua experiência de moradia ainda mais especial. Venha conhecer nossos projetos e descubra como podemos transformar seus sonhos em realidade.</p>  
     <div id="conteudo0" class="flex-container">
       <div class="flex-row">
@@ -111,7 +111,7 @@
     </div>
     <div class="quadrado2">
       <img src="img/mao.png" alt="Image">
-         <p>Projeto personalizado</p>
+         <p> Modelo basico</p>
        
     </div>
   </div>
@@ -121,10 +121,10 @@
          <p>Projeto modificado</p>
      
     </div>
-    <div class="quadrado4">
+    <div class="quadrado4"><a href="login.html">
       <img src="img/mcasa.png" alt="">
-      <p>Modelo basico</p>
-
+      <p>Projeto personalizado</p>
+    </a>
     </div>
   </div>
 </div>
@@ -137,7 +137,48 @@
  
   </div>
 
-  <div id="conteudo2">
+<div id="cor">
+  <div class="project-section">
+    <div class="project-detail">
+      <p> Descubra o porque você deve escolher a Tektõn.</p>
+      <hr class="styled-hr">
+    </div>
+    <div id="cima">
+    <div class="project-category">
+      <h2 class="heading-2">Profissionalismo:</h2>
+      <p>“A Tekton é sinônimo de profissionalismo no universo da arquitetura. Nossa equipe é composta por especialistas altamente qualificados que se dedicam a transformar cada projeto em uma obra-prima de precisão e excelência.”</p>
+    </div>
+    <div class="project-category">
+      <h2 class="heading-2">Sustentabilidade:</h2>
+      <p> “Na Tekton, a sustentabilidade é a pedra angular de cada projeto. Nos comprometemos com práticas ecologicamente corretas, garantindo que nossos designs contribuam para um futuro mais verde e sustentável.”</p>
+    </div>
+  </div>
+
+    <div id="centro">
+    <div class="project-category">
+      <h2 class="heading-2"> Concisão:</h2>
+      <p> “Com a Tekton, a clareza e a concisão são fundamentais. Nossos projetos são meticulosamente planejados para atender às necessidades dos clientes com eficiência, evitando qualquer excesso desnecessário.”</p>
+    </div>
+    <div class="project-category">
+      <h2 class="heading-2">  Visão Holística:</h2>
+      <p> “A abordagem holística da Tekton garante que cada projeto seja considerado em todas as suas facetas, integrando-se harmoniosamente ao seu contexto e ao meio ambiente, para criar espaços que inspiram e enriquecem.”</p>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+<div id="conteudo2">
+<div class="form-container">
+  <p>Ainda não se decidiu qual plano escolher?</p>
+  <p> Por favor, responda esse pequeno formulário que recomendaremos para você.</p>
+  <input type="number" class="controle" id="minBudget" placeholder="Valor mínimo">
+  <input type="number" class="controle" id="maxBudget" placeholder="Valor máximo">
+  <button class="button" onclick="recommendProjects()">projetos recomendados</button>
+  <p id="result"></p>
+</div>
+
+
     <br>
     
     <div class="swiper mySwiper">
@@ -170,6 +211,35 @@
       }
     });
 
+
+
+    
+    
+  
+    function recommendProjects() {
+  const minBudget = parseFloat(document.getElementById('minBudget').value);
+  const maxBudget = parseFloat(document.getElementById('maxBudget').value);
+
+  let recommendation = '';
+
+  if (minBudget >= 1000 && maxBudget <= 100000) {
+    const projectA = 7500;
+    recommendation = `Nós recomendamos o projeto A, com o valor ${projectA.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+  } else if (minBudget >= 1000 && maxBudget <= 200000) {
+    const projectB = 15000;
+    recommendation = `Nós recomendamos o projeto B, com o valor ${projectB.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+  } else if (minBudget >= 1000 && maxBudget <= 500000) {
+    const projectC = 30000;
+    recommendation = `Nós recomendamos o projeto C, com o valor ${projectC.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+  } else if (minBudget >= 700000) {
+    const projectD = 70000;
+    recommendation = `Nós recomendamos o projeto D, com o valor R${projectD.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+  } else {
+    recommendation = 'No momento não temos projetos que caibam no seu orçamento.';
+  }
+
+  document.getElementById('result').innerText = recommendation;
+}
 
   </script>
 

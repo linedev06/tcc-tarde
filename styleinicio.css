@@ -412,6 +412,8 @@ h1 {
 .quadrado4 p {
   position: relative;
   z-index: 1;
+  text-decoration: none;
+  color: black;
 }
 .quadrado4:hover p {
   color: #ff9a00;
@@ -695,4 +697,117 @@ footer a {
   height: 100%;
   object-fit: cover;
 
+}
+
+
+
+.project-section {
+  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-left: 50px;
+  align-items: center;
+  padding: 50px;
+}
+
+.project-detail {
+  width: 250px;
+  margin-bottom: 50px;
+  font-weight: bold;
+  font-size:x-large;
+}
+
+.project-detail a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.project-category {
+  width: 300px;
+  margin-bottom: 50px;
+  background-color: #f5f5f5;
+  border: 1px solid #fff;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.project-category:hover {
+  border-color: #ff9a00;
+  background-color: #ff9a00;
+  color: #fff;
+}
+
+.project-category h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.project-category p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+#cima {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  margin-right: 470px;
+}
+
+#centro {
+  display: flex;
+  justify-content: center;
+  margin-top: -50px;
+  margin-right: 45px;
+}
+
+.styled-hr {
+  border: none;
+  height: 3px;
+  color: #ff9a00;
+  background-color: #ff9a00;
+  margin: 10px 0;
+}
+ 
+#cor{
+  background-color: #fae9cf;
+
+}
+.form-container {
+  margin-top: -900px;
+  width: 300px;
+  margin: 0 auto;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  background-color: #f5f5f5;
+}
+
+.form-container:hover {
+  border-color: #ff9a00;
+  background-color: #fff;
+}
+
+.controle {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff9a00;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
