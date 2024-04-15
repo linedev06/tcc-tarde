@@ -62,11 +62,12 @@ $(document).ready(function(){
     });
 });
 
-// const observer = new IntersectionObserver((entries) => {
-//     entries.forEach((entry) => {
-//         if (entry.isIntersecting) {
-//             const teste = entry.target;
-//             teste.src = 
-//         }
-//     })
-// })
+
+
+
+
+
+
+document.getElementById('favoritedBtn').addEventListener('click', function() {
+    document.querySelector('.filters').classList.toggle('favorited');
+  });

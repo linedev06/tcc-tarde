@@ -1,23 +1,8 @@
 /* Reset de Estilos */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-#foto1{
-    height: 50em;
-    background-image: url(https://archvalor.com.br/wp-content/uploads/2023/10/Untitled-design-34-1.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    background-attachment: fixed; /* Torna a imagem de fundo fixa */
-}
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
     line-height: 1.6;
 }
 #tek{
@@ -27,6 +12,7 @@ body {
 #contact {
     background-color: #f9f9f9;
     padding: 40px 0;
+    margin-top: 100px;
 }
 
 #contact .container {
@@ -64,7 +50,7 @@ body {
 }
 
 #contact-form button {
-    background-color: #ffd700;
+    background-color: #ff9a00;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -79,89 +65,13 @@ body {
 }
 
 
-header {
-    background-color: #fff;
-    color: #0e0d0d;
-    padding: 20px 0;
-    text-align: center;
-   
-}
-
-header h1 {
-    font-size: 2.5em;
-}
-
-nav ul {
-    list-style: none;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 20px;
-}
-
-nav ul li a {
-    color: #000000;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-    color: #ffd700;
-}
-
-section {
-    padding: 40px 0;
-}
-
-h2 {
-    font-size: 2em;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-ul {
-    list-style: none;
-}
-
-button {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 15px 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #555;
-}
-
 footer {
+    margin-top: 260px;
     background: #333;
     color: #fff;
     text-align: center;
     padding: 20px 0;
 }
 
-.carousel {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-}
 
-.carousel-item {
-    flex: 0 0 auto;
-    width: 50%;
-    padding: 0 10px;
-    scroll-snap-align: start;
-}
-
-.carousel-item img {
-    width: 100%;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
