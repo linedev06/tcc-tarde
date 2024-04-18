@@ -71,3 +71,15 @@ $(document).ready(function(){
 document.getElementById('favoritedBtn').addEventListener('click', function() {
     document.querySelector('.filters').classList.toggle('favorited');
   });
+
+
+
+
+
+
+
+
+
+
+
+

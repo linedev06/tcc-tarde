@@ -26,7 +26,6 @@ a {
   text-decoration: none;
 }
 
-
 .navbar {
   z-index: 1000;
   font-size: 20px;
@@ -83,7 +82,7 @@ a {
 
 
 #icones img {
-  width: 300px;
+  width: 200px;
   height: 200px;
   margin-right: 15em;
   /* Adicione um valor conforme necessário */
@@ -97,6 +96,7 @@ a {
   width: 700px;
   align-items: center;
   color: white;
+  
 }
 
 .imagem {
@@ -976,3 +976,90 @@ footer a {
   #cor {
     margin: 20px;
   }
+
+  #cor .project-section {
+    flex-wrap: wrap;
+  }
+
+  #cor .project-section .project-detail {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  #cor .project-section .project-detail p {
+    font-size: 14px;
+  }
+
+  #cor .project-section .project-detail hr {
+    width: 100%;
+  }
+
+  #cor .project-section .project-category {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  #cor .project-section .project-category h2 {
+    font-size: 24px;
+  }
+
+  #cor .project-section .project-category p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Ajuste o tamanho e posicionamento dos elementos no conteúdo quarto */
+  #conteudo2 {
+    margin: 20px;
+  }
+
+  #conteudo2 .form-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  #conteudo2 .form-container p {
+    font-size: 14px;
+  }
+
+  #conteudo2 .form-container input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  #conteudo2 .form-container button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  #conteudo2 .form-container #result {
+    font-size: 14px;
+  }
+
+  /* Ajuste o tamanho e posicionamento do swiper */
+  .swiper {
+    width: 100%;
+    height: 200px;
+  }
+
+  .swiper-slide {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+}

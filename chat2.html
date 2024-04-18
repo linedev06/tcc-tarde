@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chat Bot - Chat 1</title>
+<title>Chat Bot - Chat 2</title>
 <style>
   #chatbot {
     width: 300px;
@@ -50,12 +50,12 @@
 
 <div id="chatbot">
   <p>Bem-vindo ao Chat Bot da Tektõn!</p>
-  <p id="question">1. Qual é o seu estilo de vida?</p>
+  <p id="question">1. Qual é o estilo do seu jardim?</p>
   <ul id="options"></ul>
 </div>
 
 <script>
-  const chatbot = document.getElementById('chatbot');
+const chatbot = document.getElementById('chatbot');
   const question = document.getElementById('question');
   const options = document.getElementById('options');
   let answers = [];
@@ -79,10 +79,11 @@
         nextQuestion.options.forEach(option => addOption(option.text, option.answer));
       } else {
         const result = getResult(answers);
+        chatbot.innerHTML = `<p>O estilo de casa que melhor se adapta a você é: ${result.text}</p>`;
         const nextChatButton = document.createElement('button');
         nextChatButton.innerText = 'Próximo Chat';
         nextChatButton.addEventListener('click', () => {
-          window.location.href = 'chat2.html';
+          window.location.href = 'chat3.html';
         });
         chatbot.appendChild(nextChatButton);
       }
@@ -92,42 +93,56 @@
 
   const questions = [
     {
-      text: '1. Qual é o seu estilo de vida?',
+      text: '1. Qual é o estilo do seu jardim?',
       options: [
-        { text: 'Ativo e social', answer: 'A' },
-        { text: 'Calmo e reservado', answer: 'B' },
-        { text: 'Profissional e organizado', answer: 'C' },
-        { text: 'Criativo e artístico', answer: 'D' },
-      ],
+        { text: 'Jardim tropical', answer: 'A' },
+        { text: 'Jardim inglês', answer: 'B' },
+        { text: 'Jardim desértico', answer: 'C' },
+        { text: 'Jardim contemporâneo', answer: 'D' },
+      ]
     },
     {
-      text: '2. Qual é o seu orçamento para decoração?',
+      text: '2. Qual é o tamanho do seu espaço externo?',
       options: [
-        { text: 'Baixo', answer: 'A' },
+        { text: 'Pequeno', answer: 'A' },
         { text: 'Médio', answer: 'B' },
-        { text: 'Alto', answer: 'C' },
-        { text: 'Não tenho um orçamento específico', answer: 'D' },
-      ],
+        { text: 'Grande', answer: 'C' },
+        { text: 'Muito grande', answer: 'D' },
+      ]
     },
     {
-      text: '3. Qual é o seu estilo de decoração preferido?',
+      text: '3. Quais elementos você gostaria de incluir no seu espaço externo?',
       options: [
-        { text: 'Moderno e minimalista', answer: 'A' },
-        { text: 'Clássico e tradicional', answer: 'B' },
-        { text: 'Rústico e natural', answer: 'C' },
-        { text: 'Eclético e colorido', answer: 'D' },
-      ],
+        { text: 'Piscina', answer: 'A' },
+        { text: 'Área de churrasco', answer: 'B' },
+        { text: 'Jardim de ervas', answer: 'C' },
+        { text: 'Área de estar ao ar livre', answer: 'D' },
+      ]
     },
+    {
+      text: '4. Qual é a sua preferência de iluminação externa?',
+      options: [
+        { text: 'Luzes suaves e difusas', answer: 'A' },
+        { text: 'Iluminação focal', answer: 'B' },
+        { text: 'Iluminação colorida', answer: 'C' },
+        { text: 'Iluminação minimalista', answer: 'D' },
+      ]
+    },
+    {
+      text: '5. Como você planeja usar o seu espaço externo durante o dia?',
+      options: [
+        { text: 'Relaxamento e lazer', answer: 'A' },
+        { text: 'Atividades de entretenimento', answer: 'B' },
+        { text: 'Cultivo de plantas', answer: 'C' },
+        { text: 'Trabalho ao ar livre', answer: 'D' },
+      ]
+    }
   ];
 
   askQuestion(questions[0].text);
   questions[0].options.forEach(option => addOption(option.text, option.answer));
 
   function getResult(answers) {
-    let result = '';
-
-    // Analisar as respostas e determinar o resultado com base nelas
-    // Aqui estou apenas fornecendo algumas regras de exemplo
     const estiloVida = answers[0];
     const orcamento = answers[1];
     const estiloDecoracao = answers[2];
@@ -144,7 +159,7 @@
       result = 'Estilo padrão';
     }
 
-    // Retornar o resultado como um objeto
+  
     return { text: result };
   }
 </script>
