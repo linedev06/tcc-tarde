@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat Bot</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .imagem-pequena {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 310px; 
+    right: 0; 
+}
+  .chat-container {
+    margin-top: -50px;
+    width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+
+  .chat-messages {
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+  }
+
+  .message {
+    margin-bottom: 10px;
+  }
+
+  .message-bot {
+    text-align: left;
+    color: #333;
+  }
+
+  .message-user {
+    text-align: right;
+    color: #007bff;
+  }
+
+  .chat-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: none;
+    border-top: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .btn-send {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    background-color: #ff9a00 ;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .btn-send:hover {
+    background-color: #ffc062;
+  }
+
+</style>
+</head>
+<body>
+   
+
+    <div class="chat-container" style="position: relative;">
+        <div class="chat-messages" id="chat-messages"></div>
+        <input type="text" class="chat-input" id="user-input" placeholder="Digite sua resposta...">
+        <button class="btn-send" onclick="sendMessage()">Enviar</button>
+        <img src="img/latsflaubranco-removebg-preview.png" alt="" class="imagem-pequena">
+    </div>
+
+<script>
+ const chatMessages = document.getElementById('chat-messages');
+const userInput = document.getElementById('user-input');
+
+// Adiciona um evento de tecla ao campo de entrada do usuário
+userInput.addEventListener('keyup', function(event) {
+    // Verifica se a tecla pressionada é "Enter" (código 13)
+    if (event.keyCode === 13) {
+        // Chama a função sendMessage() quando "Enter" é pressionado
+        sendMessage();
+    }
+});
+
+// Função para adicionar a mensagem inicial ao abrir o chat
+window.onload = function() {
+    addInitialMessage();
+};
+
+// Função para adicionar uma mensagem fixa quando o chat é aberto
+function addInitialMessage() {
+    const initialMessage = 'Para finalizar o atendimento, escreva quais foram os resultados obtidos para finalizar seu projeto. Caso haja dúvidas, escreva "?"';
+    addMessage(initialMessage, 'bot');
+}
+
+// Função para adicionar uma mensagem ao chat
+function addMessage(message, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', sender === 'user' ? 'message-user' : 'message-bot');
+    const senderName = sender === 'user' ? 'Usuário' : 'Bot-Tektõn'; // Define o nome do remetente
+    messageDiv.innerHTML = `<b>${senderName}:</b> ${message}`; // Adiciona o nome do remetente à mensagem
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+}
+
+function sendMessage() {
+    const userMessage = userInput.value;
+    addMessage(userMessage, 'user');
+    processMessage(userMessage);
+    userInput.value = '';
+}
+
+function processMessage(message) {
+    if (message.toLowerCase().includes('olá')) {
+        addMessage('Olá! Como posso ajudar?', 'bot');
+    } else if (message.toLowerCase().includes('como você está?')) {
+        addMessage('Estou bem, obrigado por perguntar!', 'bot');
+    } else {
+        const result = getResult(message);
+        addMessage(result, 'bot');
+    }
+}
+
+function getResult(message) {
+    const trimmedMessage = message.toLowerCase().trim();
+    let result = '';
+
+    switch (trimmedMessage) {
+        case '?':
+            result = 'Algumas perguntas que você poderá fazer:\n';
+            result += '- Quero saber sobre o estilo A\n';
+            result += '- Estilo B\n';
+            result += '- Me explique sobre o estilo C\n';
+            result += '- Estilo D\n';
+            result += '- Quero entrar em contato com a Tektõn\n';
+            break;
+        case 'quero saber sobre o estilo a':
+        case 'estilo a':
+        case 'me explique sobre o estilo a':
+        case 'quero saber sobre o estilo a':
+        case 'estilo a':
+        case 'me explique sobre o estilo a':
+            result = 'Estilo A: Isso indica um estilo de vida ativo e social, com um orçamento baixo para decoração e uma preferência por decoração moderna e minimalista. Essa pessoa provavelmente gosta de estar cercada por amigos e atividades sociais, prefere um ambiente limpo e organizado, e pode optar por móveis e decorações mais simples e contemporâneas.';
+            break;
+        case 'quero saber sobre o estilo b':
+        case 'estilo b':
+        case 'me explique sobre o estilo b':
+        case 'Quero saber sobre o estilo B':
+        case 'Estilo B':
+        case 'Me explique sobre o estilo B':
+            result = 'Estilo B: Este resultado sugere um estilo de vida calmo e reservado, com um orçamento médio para decoração e uma preferência por decoração clássica e tradicional. Essa pessoa provavelmente valoriza a tradição, a história e o conforto em seu espaço, optando por móveis e decorações que reflitam uma sensação de elegância e atemporalidade.';
+            break;
+        case 'quero saber sobre o estilo c':
+        case 'estilo c':
+        case 'me explique sobre o estilo c':
+        case 'Quero saber sobre o estilo C':
+        case 'Estilo C':
+        case 'Me explique sobre o estilo C':
+            result = 'Estilo C: Indica um estilo de vida profissional e organizado, com um orçamento alto para decoração e uma preferência por decoração rústica e natural. Essa pessoa pode ser orientada para a carreira, valorizando a funcionalidade e a praticidade em seu espaço, enquanto também deseja uma sensação de conexão com a natureza e materiais orgânicos em sua decoração.';
+            break;
+
+
+
+
+
+
+        case 'quero entrar em contato':
+        case 'quero entrar em contato com a Tektõn':
+        case 'Quero entrar em contato':
+        case 'Quero entrar em contato com a Tektõn':
+        case 'contato':
+        case 'Contato':
+            result = 'Claro! Para entrar em contato, mande um email em: tekton.projetos01@gmail.com';
+            break;
+
+
+
+
+        case 'quero saber sobre o estilo d':
+        case 'estilo d':
+        case 'me explique sobre o estilo d':
+        case 'Quero saber sobre o estilo D':
+        case 'Estilo D':
+        case 'Me explique sobre o estilo D':
+            result = 'Estilo D: Este resultado representa um estilo de vida criativo e artístico, com um orçamento indefinido para decoração e uma preferência por decoração eclética e colorida. Essa pessoa pode ser expressiva, imaginativa e aberta a experimentar diferentes estilos e cores em seu espaço, refletindo sua personalidade vibrante e única.';
+            break;
+        default:
+            result = 'Desculpe, não entendi. Por favor, tente novamente. E caso tenha duvidas envie um "?"';
+            break;
+    }
+
+    return result;
+}
+
+</script>
+
+</body>
+</html>

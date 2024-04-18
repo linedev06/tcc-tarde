@@ -7,15 +7,15 @@
 <style>
   #chatbot {
     width: 300px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ff9a00;
-      border-radius: 5px;
-      background-color: #f9f9f9;
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ff9a00;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   #chatbot p {
@@ -44,6 +44,22 @@
   .option:hover {
     background-color: #eee;
   }
+
+  /* Estilo para os quadrados */
+  .square-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .square {
+    margin-right: 20px;
+    margin-top: 550px;
+    width: 200px;
+    height: 200px;
+    background-color: rgb(199, 208, 211);
+    border-radius: 10px;
+  }
 </style>
 </head>
 <body>
@@ -52,6 +68,14 @@
   <p>Bem-vindo ao Chat Bot da Tektõn!</p>
   <p id="question">1. Qual é o seu estilo de vida?</p>
   <ul id="options"></ul>
+</div>
+
+<!-- Quadrados adicionados -->
+<div class="square-container">
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
 </div>
 
 <script>
@@ -79,6 +103,7 @@
         nextQuestion.options.forEach(option => addOption(option.text, option.answer));
       } else {
         const result = getResult(answers);
+        chatbot.innerHTML = `<p>O estilo de casa que melhor se adapta a você é: ${result.text}</p>`;
         const nextChatButton = document.createElement('button');
         nextChatButton.innerText = 'Próximo Chat';
         nextChatButton.addEventListener('click', () => {
@@ -151,3 +176,4 @@
 
 </body>
 </html>
+
