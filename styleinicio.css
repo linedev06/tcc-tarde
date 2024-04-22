@@ -736,6 +736,14 @@ footer a {
   margin-bottom: 50px;
   font-weight: bold;
   font-size: x-large;
+  opacity: 0; 
+  transform: translateX(-100%);
+  transition: opacity 0.5s ease, transform 0.9s ease;
+}
+
+.project-detail.active {
+  opacity: 1; 
+  transform: translateX(0); 
 }
 
 .project-detail a {
@@ -1063,3 +1071,6 @@ footer a {
     font-size: 14px;
   }
 }
+
+
+

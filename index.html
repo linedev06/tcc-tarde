@@ -270,6 +270,27 @@
         document.getElementById('result').innerText = recommendation;
       }
 
+
+
+
+
+
+
+
+
+      document.addEventListener("DOMContentLoaded", function() {
+    var projectDetail = document.querySelector(".project-detail");
+    var projectDetailPosition = projectDetail.getBoundingClientRect().top;
+
+    window.addEventListener("scroll", function() {
+        if (window.scrollY > projectDetailPosition - window.innerHeight / 1.5) {
+            projectDetail.classList.add("active");
+        }
+    });
+});
+
+
+
     </script>
 
 </body>

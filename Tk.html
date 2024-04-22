@@ -1,11 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre nós</title>
+    <title>Galeria de PDFs</title>
+  <style>.gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gallery img {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    cursor: pointer;
+}</style>
 </head>
 <body>
-    
+    <div class="gallery">
+        <img src="img/architecture1.jpg" alt="Imagem 1" data-pdf="https://etecspgov-my.sharepoint.com/personal/vitor_felismino_etec_sp_gov_br/Documents/THE%20WAR%20OF%20N%C3%9CR%20-%20THE%20H%C3%96RGR%E2%80%99S%20LEAGUE.pdf">
+        <a href="https://etecspgov-my.sharepoint.com/personal/vitor_felismino_etec_sp_gov_br/Documents/THE%20WAR%20OF%20N%C3%9CR%20-%20THE%20H%C3%96RGR%E2%80%99S%20LEAGUE.pdf"> <img src="img/Home.jpg" alt="Imagem 2" ></a>
+        <img src="image3.jpg" alt="Imagem 3" data-pdf="pdf3.pdf">
+        <!-- Adicione mais imagens conforme necessário -->
+    </div>
+    <script src="scripts.js">document.addEventListener("DOMContentLoaded", function() {
+        const images = document.querySelectorAll(".gallery img");
+        images.forEach(img => {
+            img.addEventListener("click", function() {
+                const pdfUrl = this.getAttribute("data-pdf");
+                if (pdfUrl) {
+                    window.open(pdfUrl, "_blank");
+                } else {
+                    alert("Link para o PDF não encontrado!");
+                }
+            });
+        });
+    });</script>
 </body>
 </html>
