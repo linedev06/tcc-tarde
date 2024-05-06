@@ -62,6 +62,15 @@ a {
   backdrop-filter: saturate(180%) blur(4px);
 }
 
+#linha {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ff9a00;
+    transition: width 0.3s ease, left 0.3s ease;
+}
 #icones {
   display: block;
   margin-left: 17em;
