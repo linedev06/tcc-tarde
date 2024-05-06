@@ -15,10 +15,11 @@
   <div class="navbar opacity" id="navbar">
     <div id="icones">
      <a href="#conteudo1"><img src="img/latsflaubranco-removebg-preview.png" alt="" srcset=""></a>
-      <a id="home" href="#hobby">Home</a>
-      <a id="sobre" href="#conteudo1">Sobre</a>
+      <a id="home" href="#hobby" style="color: #FF9A00;">Home</a>
+      <a id="sobre" href="Tk.html">Sobre</a>
       <a id="contato" href="contato.html">Contato</a>
     </div>
+    <div id="linha"></div>
     <div class="social-buttons">
       <a href="https://github.com/linedev06" class="social-button github">
         <svg class="cf-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="-2.5 0 19 19">
@@ -290,6 +291,19 @@
 });
 
 
+
+
+
+document.querySelectorAll('#icones a').forEach(item => {
+        item.addEventListener('click', event => {
+            let linha = document.getElementById('linha');
+            let targetWidth = event.target.offsetWidth;
+            let targetLeft = event.target.offsetLeft;
+
+            linha.style.width = targetWidth + 'px';
+            linha.style.left = targetLeft + 'px';
+        });
+    });
 
     </script>
 

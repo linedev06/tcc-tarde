@@ -8,6 +8,20 @@ body {
   /* Para garantir que o footer fique fixo no final da página */
 }
 
+/* Estilo do footer */
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #9b5d00;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  z-index: 100;
+  /* Ajuste o z-index conforme necessário */
+}
+
 a {
   text-decoration: none;
 }
@@ -16,16 +30,22 @@ a {
   z-index: 1000;
   font-size: 20px;
   font-weight: 600;
+  display: flex;
+  /* Torna os elementos filhos flexíveis */
   justify-content: space-between;
+  /* Distribui o espaço entre os elementos */
   align-items: center;
+  /* Alinha os elementos verticalmente ao centro */
   padding: 10px 20px;
+  /* Adicione preenchimento conforme necessário */
   background-color: transparent;
+  /* Defina a cor de fundo desejada */
   transition: background-color 0.3s ease;
+  /* Adiciona transição suave */
   position: fixed;
   width: 100vw;
-  height: 12vh; /* Altere o valor conforme necessário */
+  height: 14vh;
 }
-
 
 
 /* Estilo da navbar quando está com cor */
@@ -76,9 +96,13 @@ a {
   width: 700px;
   align-items: center;
   color: white;
-
+  
 }
 
+.imagem {
+  position: fixed;
+  z-index: -1;
+}
 #tek {
   color: #FF9A00;
 }

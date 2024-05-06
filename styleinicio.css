@@ -5,7 +5,6 @@ body {
   padding: 0;
   font-family: 'Lato', sans-serif;
   position: relative;
-  /* Para garantir que o footer fique fixo no final da página */
 }
 
 /* Estilo do footer */
@@ -19,7 +18,6 @@ footer {
   text-align: center;
   padding: 10px;
   z-index: 100;
-  /* Ajuste o z-index conforme necessário */
 }
 
 a {
@@ -31,29 +29,31 @@ a {
   font-size: 20px;
   font-weight: 600;
   display: flex;
-  /* Torna os elementos filhos flexíveis */
   justify-content: space-between;
-  /* Distribui o espaço entre os elementos */
   align-items: center;
-  /* Alinha os elementos verticalmente ao centro */
   padding: 10px 20px;
-  /* Adicione preenchimento conforme necessário */
   background-color: transparent;
-  /* Defina a cor de fundo desejada */
   transition: background-color 0.3s ease;
-  /* Adiciona transição suave */
   position: fixed;
   width: 100vw;
   height: 14vh;
 }
 
 
-/* Estilo da navbar quando está com cor */
 .navbar.colored {
   background-color: #fff;
-  /* Altere a cor conforme necessário */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Adicione sombra se desejar */
+
+}
+
+#linha {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ff9a00;
+  transition: width 0.3s ease, left 0.3s ease;
 }
 
 .navbar.opacity {
@@ -61,7 +61,6 @@ a {
   backdrop-filter: saturate(180%) blur(4px);
 }
 
-/* Outros estilos para a navbar */
 #icones {
   display: block;
   margin-left: 17em;
@@ -70,7 +69,6 @@ a {
 
 #icones a {
   margin-right: 5em;
-  /* Adicione um valor conforme necessário */
   text-decoration: none;
   color: #000;
 }
@@ -85,10 +83,8 @@ a {
   width: 200px;
   height: 200px;
   margin-right: 15em;
-  /* Adicione um valor conforme necessário */
 }
 
-/* Estilos de outras seções da página */
 
 #icones {
   display: flex;
@@ -106,14 +102,13 @@ a {
 
 #conteudo1 {
   height: 50em;
-  background-image: url(https://archvalor.com.br/wp-content/uploads/2023/10/Untitled-design-34-1.png);
+  background-image: url(img/Imagem\ do\ WhatsApp\ .jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   background-attachment: fixed;
-  /* Torna a imagem de fundo fixa */
 }
 
 .card {
@@ -146,14 +141,14 @@ a {
   color: rgb(134, 134, 134);
 }
 
-/*Text*/
+
 .text-title {
   font-size: 1.5em;
   font-weight: bold;
   font-family: "Noto Sans", sans-serif;
 }
 
-/*Hover*/
+
 .card:hover {
   border-color: #FF9A00;
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
@@ -435,12 +430,9 @@ h1 {
   padding-bottom: 200px;
 }
 
-/* Efeito de hover */
 .image-container img:hover {
   transform: scale(1.1);
-  /* Aumenta a escala da imagem em 10% */
   filter: brightness(1.2);
-  /* Clareia um pouco a imagem */
 }
 
 .quadrado5 {
@@ -516,27 +508,20 @@ h1 {
 
 
 
-/* Estilo para a mensagem */
+
 #mensagem {
   font-size: 24px;
-  /* Tamanho da fonte da mensagem */
   color: #fff;
-  /* Cor do texto da mensagem */
-  margin: 50px;
-  /* Adicionar margem de 50px em todas as direções */
+  margin: 50px; 
   padding-bottom: 20px;
-  /* Reduzir o espaço inferior */
 }
 
 .underline::after {
   content: "";
   display: block;
   width: 50%;
-  /* Ajuste a largura do traço conforme necessário */
   height: 2px;
-  /* Ajuste a altura do traço conforme necessário */
   background-color: black;
-  /* Cor do traço */
 }
 
 .social-buttons {
@@ -628,14 +613,11 @@ footer {
   padding: 20px 0;
   text-align: center;
   margin-top: 0;
-  /* Remover a margem superior */
   position: relative;
-  /* Manter o posicionamento relativo */
   z-index: 1;
-  /* Definir uma z-index maior para sobrepor o conteúdo */
+
 }
 
-/* Estilo dos links do footer */
 footer a {
   color: #fff;
   text-decoration: none;
@@ -644,50 +626,35 @@ footer a {
 
 @media (min-width: 768px) {
 
-  /* Estilos para telas maiores que 767px (PC) */
   #fts-container {
     grid-template-columns: 1fr 1fr;
-    /* Dividir em duas colunas */
   }
 
   #fts {
     justify-self: end;
-    /* Alinhar o vídeo à direita */
     width: 80%;
-    /* Reduzir a largura para 80% da tela */
     margin-right: 6px;
-    /* Adicionar margem direita de 50px */
     margin-bottom: 0;
-    /* Remover a margem inferior */
   }
 
   #mensagem {
     justify-self: start;
-    /* Alinhar a mensagem à esquerda */
     font-size: 24px;
-    /* Manter o tamanho da fonte */
     margin-left: 150px;
-    /* Adicionar margem esquerda de 50px */
     margin-bottom: 200px;
-    /* Remover a margem inferior */
   }
 }
 
 @media (max-width: 767px) {
 
-  /* Estilos para telas menores ou iguais a 767px (Celular) */
   #fts {
     width: 100%;
-    /* Ocupar toda a largura disponível */
     margin-left: 0;
-    /* Remover a margem esquerda */
   }
 
   #mensagem {
     font-size: 20px;
-    /* Reduzir o tamanho da fonte */
     margin: 20px;
-    /* Adicionar margem em todas as direções */
   }
 }
 
