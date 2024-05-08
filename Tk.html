@@ -77,11 +77,74 @@
 </head>
 <body>
     <div class="gallery" >
-        <img src="img/architecture1.jpg" alt="Imagem 1" data-pdf="https://etecspgov-my.sharepoint.com/personal/vitor_felismino_etec_sp_gov_br/Documents/THE%20WAR%20OF%20N%C3%9CR%20-%20THE%20H%C3%96RGR%E2%80%99S%20LEAGUE.pdf">
-        <a href="https://etecspgov-my.sharepoint.com/personal/vitor_felismino_etec_sp_gov_br/Documents/THE%20WAR%20OF%20N%C3%9CR%20-%20THE%20H%C3%96RGR%E2%80%99S%20LEAGUE.pdf"> <img src="img/Home.jpg" alt="Imagem 2" ></a>
-        <img src="image3.jpg" alt="Imagem 3" data-pdf="pdf3.pdf">
-        <!-- Adicione mais imagens conforme necessário -->
+      <div style="color: #FF9A00; text-align: justify; margin-left: 330px; margin-top: 110px;"><h1>Conheça um pouco mais da equipe que
+        <br>transforma o seus sonhos em realidade!</h1></div>
+
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="img/architecture1.jpg" alt=""> 1</div>
+          <div class="swiper-slide"><img src="img/architecture-1477103_1920.jpg" alt=""> 2</div>
+          <div class="swiper-slide"><img src="img/architecture3.jpg" alt=""> 3</div>
+
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+      <br>
     </div>
+    <center>
+    <div style=" width: 1300px; height: 500px; margin-top: 100px; border-radius: 30px; background-color: #0d1b50;">
+      <div class="project-detail">
+        <p> Descubra o porque você deve escolher a Tektõn.</p>
+        <hr class="ed-hr">
+      </div>
+
+    </div>
+  </center>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+   
+    </div>
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: true,
+        delay: 2500,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: false,
+        }
+      });
+
+
+
+
+
+
+
+      document.addEventListener("DOMContentLoaded", function() {
+  var projectDetail = document.querySelector(".project-detail");
+
+  function revealProjectDetail() {
+    var revealPosition = projectDetail.getBoundingClientRect().top;
+    var windowHeight = window.innerHeight;
+
+    if (revealPosition < windowHeight) {
+      projectDetail.classList.add("active");
+      window.removeEventListener("scroll", revealProjectDetail);
+    }
+  }
+
+  window.addEventListener("scroll", revealProjectDetail);
+});
+
+
+      </script>
   <div style="margin-top: 500px;"></div>
 </body>
 </html>
