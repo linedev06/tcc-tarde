@@ -226,12 +226,122 @@
         .timer.active {
             display: block;
         }
+        .ligacao-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #FF9A00;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.ligacao-btn:hover {
+  background-color: #ffa533;
+}
+
+.ligacao-janela {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.ligacao-janela {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+  text-align: center;
+}
+
+.ligacao-janela h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.ligacao-janela p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.ligacao-circulo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #FF9A00;
+  margin: 20px auto;
+  padding: 5px; /* Reduzida de 10px para 5px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: piscar 1s infinite;
+  border: 2px solid #FF9A00; /* Adicionado borda para dar mais destaque */
+}
+
+.ligacao-circulo img {
+  width: 180px; /* Aumentada de 40px para 60px */
+  height: 100px; /* Aumentada de 40px para 60px */
+  border-radius: 50%;
+  background-color: #fff;
+  padding: 5px;
+}
+
+.ligacao-janela h2 {
+  margin-top: 0;
+}
+
+.ligacao-janela p {
+  margin-bottom: 10px;
+}
+
+.fechar-ligacao-btn {
+  background-color: #FF9A00;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.fechar-ligacao-btn:hover {
+  background-color: #ffa533;
+}
+
+@keyframes piscar {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
     </style>
 </head>
 <body>
     <div class="container">
         <aside class="sidebar">
-           <a href="index.html"><img src="img/latsflaubranco-removebg-preview.png" alt="Logo" class="logo"></a> 
+            <a href="index.html"><img src="img/latsflaubranco-removebg-preview.png" alt="Logo" class="logo"></a>
             <div class="server-list">
                 <button class="server-btn active" data-server="server1">Server 1</button>
                 <button class="server-btn" data-server="server2">Server 2</button>
@@ -240,7 +350,7 @@
             <div class="channel-list">
                 <h3>Channels</h3>
                 <ul>
-                    <li class="active" data-channel="#general">#general</li>
+                    <li class="active" data-channel="#general">#geral</li>
                     <li data-channel="#random">#random</li>
                     <li data-channel="#voice-chat">#voice-chat</li>
                 </ul>
@@ -249,9 +359,22 @@
         
         <main class="chat-area">
             <div class="chat-header">
-                <h2 id="current-channel">#general</h2>
+                <h2 id="current-channel">#geral</h2>
+                <button id="ligacao-btn" class="ligacao-btn">Ligação</button>
             </div>
-            <div class="chat-content" id="chat-content-server1">
+            
+            <div class="ligacao-janela" id="ligacao-janela">
+                <h2>Ligando para o arquiteto...</h2>
+                <div class="ligacao-circulo">
+                  <img src="img/arquiteto.png" alt="Arquiteto">
+                </div>
+                <p>Aguarde um momento...</p>
+                <button class="fechar-ligacao-btn" id="fechar-ligacao-btn">Fechar</button>
+              </div>
+
+
+              
+              <div class="chat-content" id="chat-content-server1">
                 <div class="message">
                     <p><strong>Bot:</strong></p>
 
@@ -310,7 +433,7 @@
             </div>
         </main>
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const chatInput = document.getElementById('chat-input');
@@ -325,7 +448,7 @@
             let activeChannel = "#general"; // default active channel
             let recordingInterval;
             let seconds = 0;
-    
+
             function sendMessage() {
                 const messageText = chatInput.value.trim();
                 if (messageText !== "") {
@@ -337,28 +460,28 @@
                     activeChatContent.scrollTop = activeChatContent.scrollHeight; // Scroll to the bottom
                 }
             }
-    
+
             chatInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     sendMessage();
                 }
             });
-    
+
             sendBtn.addEventListener('click', function() {
                 sendMessage();
             });
-    
+
             // Handle voice recording
             let mediaRecorder;
             let audioChunks = [];
-    
+
             voiceBtn.addEventListener('click', function() {
                 if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
                     alert("Your browser does not support audio recording.");
                     return;
                 }
-    
+
                 if (mediaRecorder && mediaRecorder.state === "recording") {
                     mediaRecorder.stop();
                     recordingIndicator.classList.remove('active');
@@ -371,75 +494,75 @@
                         .then(function(stream) {
                             mediaRecorder = new MediaRecorder(stream);
                             mediaRecorder.start();
-    
+
                             recordingIndicator.classList.add('active');
                             timer.classList.add('active');
-    
+
                             recordingInterval = setInterval(function() {
                                 seconds++;
                                 const minutes = Math.floor(seconds / 60);
-                                const secondsLeft = seconds % 60;
-                                timer.textContent = `${minutes.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
+                                const secs = seconds % 60;
+                                timer.textContent = `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
                             }, 1000);
-    
-                            mediaRecorder.addEventListener('dataavailable', function(event) {
+
+                            mediaRecorder.ondataavailable = function(event) {
                                 audioChunks.push(event.data);
-                            });
-    
-                            mediaRecorder.addEventListener('stop', function() {
+                            };
+
+                            mediaRecorder.onstop = function() {
                                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                                 const audioUrl = URL.createObjectURL(audioBlob);
-                                const audioMessageElement = document.createElement('div');
-                                audioMessageElement.classList.add('message');
-                                audioMessageElement.innerHTML = `<p><strong>You:</strong> Sent a voice message</p>
-                                <div class="audio-message"><audio controls src="${audioUrl}"></audio></div>`;
-                                activeChatContent.appendChild(audioMessageElement);
+                                const audio = new Audio(audioUrl);
+                                audio.play();
                                 audioChunks = [];
-                                activeChatContent.scrollTop = activeChatContent.scrollHeight;
-                            });
+                            };
+                        })
+                        .catch(function(err) {
+                            console.error("Error accessing microphone: ", err);
                         });
                 }
             });
-    
-            // Handle switching servers
-            document.querySelectorAll('.server-btn').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.server-btn').forEach(function(button) {
-                        button.classList.remove('active');
-                    });
-                    btn.classList.add('active');
-    
-                    const selectedServer = btn.getAttribute('data-server');
-                    activeChatContent.style.display = 'none';
-    
-                    switch (selectedServer) {
-                        case 'server1':
-                            activeChatContent = chatContentServer1;
-                            break;
-                        case 'server2':
-                            activeChatContent = chatContentServer2;
-                            break;
-                        case 'server3':
-                            activeChatContent = chatContentServer3;
-                            break;
-                    }
-    
-                    activeChatContent.style.display = 'block';
-                    activeChatContent.scrollTop = activeChatContent.scrollHeight;
+
+            // Handle server buttons
+            const serverButtons = document.querySelectorAll('.server-btn');
+            serverButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    serverButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const serverId = button.getAttribute('data-server');
+                    document.querySelectorAll('.chat-content').forEach(content => content.style.display = 'none');
+                    document.getElementById(`chat-content-${serverId}`).style.display = 'block';
+                    activeChatContent = document.getElementById(`chat-content-${serverId}`);
                 });
             });
-    
-            // Handle switching channels
-            document.querySelectorAll('.channel-list ul li').forEach(function(channelItem) {
-                channelItem.addEventListener('click', function() {
-                    document.querySelectorAll('.channel-list ul li').forEach(function(item) {
-                        item.classList.remove('active');
-                    });
-                    channelItem.classList.add('active');
-    
-                    activeChannel = channelItem.getAttribute('data-channel');
-                    document.getElementById('current-channel').innerText = activeChannel;
+
+            // Handle channel clicks
+            const channelItems = document.querySelectorAll('.channel-list li');
+            channelItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    channelItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    activeChannel = item.getAttribute('data-channel');
+                    document.getElementById('current-channel').textContent = activeChannel;
                 });
+            });
+
+            // Handle ligaçāo button
+            const ligacaoBtn = document.getElementById('ligacao-btn');
+            const ligacaoJanela = document.getElementById('ligacao-janela');
+            const fecharLigacaoBtn = document.getElementById('fechar-ligacao-btn');
+            const circuloEsquerda = document.getElementById('circulo-esquerda');
+
+            ligacaoBtn.addEventListener('click', function() {
+                ligacaoJanela.style.display = 'block';
+                circuloEsquerda.style.animationPlayState = 'running'; // Start animation
+            });
+
+            fecharLigacaoBtn.addEventListener('click', function() {
+                ligacaoJanela.style.display = 'none';
+                circuloEsquerda.style.animationPlayState = 'paused'; // Pause animation
             });
         });
     </script>
+</body>
+</html>
