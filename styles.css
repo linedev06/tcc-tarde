@@ -104,6 +104,7 @@
     height: 50px;
     width: 100%;
     cursor: pointer;
+    text-decoration: none;
   }
   
   .button-submit:hover {
