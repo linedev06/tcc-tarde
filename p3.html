@@ -188,7 +188,7 @@
             font-size: 18px;
         }
 
-        /* Voice recording indicator styling */
+       
         .recording-indicator {
             position: absolute;
             left: 15px;
@@ -203,15 +203,39 @@
         }
 
         .audio-message {
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-        }
+    background-color: #ffffff; 
+    border: 2px solid #f4f4f4; 
+    border-radius: 30px; 
+    padding: 10px; 
+    margin: 10px 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    max-width: 350px; 
+}
 
-        .audio-message audio {
-            margin-left: 10px;
-            width: 200px;
-        }
+
+.audio-message p {
+    margin: 0;
+    font-size: 14px; 
+    color: #FF9A00; 
+    font-weight: bold; 
+}
+
+
+.audio-message em {
+    color: #555; 
+    font-style: italic;
+}
+
+
+.audio-message audio {
+    margin-top: 8px; 
+    width: 100%; 
+    border-radius: 100px; 
+    border: 1px solid #FF9A00; 
+}
 
         /* Timer */
         .timer {
@@ -286,17 +310,17 @@
   border-radius: 50%;
   background-color: #FF9A00;
   margin: 20px auto;
-  padding: 5px; /* Reduzida de 10px para 5px */
+  padding: 5px; 
   display: flex;
   justify-content: center;
   align-items: center;
   animation: piscar 1s infinite;
-  border: 2px solid #FF9A00; /* Adicionado borda para dar mais destaque */
+  border: 2px solid #FF9A00; 
 }
 
 .ligacao-circulo img {
-  width: 180px; /* Aumentada de 40px para 60px */
-  height: 100px; /* Aumentada de 40px para 60px */
+  width: 180px; 
+  height: 100px; 
   border-radius: 50%;
   background-color: #fff;
   padding: 5px;
@@ -350,16 +374,16 @@
             <div class="channel-list">
                 <h3>Channels</h3>
                 <ul>
-                    <li class="active" data-channel="#general">#geral</li>
-                    <li data-channel="#random">#random</li>
-                    <li data-channel="#voice-chat">#voice-chat</li>
+                    <li class="active" data-channel="#General">#Geral</li>
+                    <li data-channel="#Random">#Random</li>
+                    <li data-channel="#Voice-chat">#Voice-chat</li>
                 </ul>
             </div>
         </aside>
         
         <main class="chat-area">
             <div class="chat-header">
-                <h2 id="current-channel">#geral</h2>
+                <h2 id="current-channel">#Geral</h2>
                 <button id="ligacao-btn" class="ligacao-btn">Ligação</button>
             </div>
             
@@ -370,6 +394,7 @@
                 </div>
                 <p>Aguarde um momento...</p>
                 <button class="fechar-ligacao-btn" id="fechar-ligacao-btn">Fechar</button>
+              
               </div>
 
 
@@ -423,11 +448,19 @@
                 <div class="message">
                     <p><strong>User3:</strong> Hello World in Server 3!</p>
                 </div>
+                <div class="audio-message">
+                    <p><strong>You:</strong> <em>Gravação de Áudio:</em></p>
+                    <audio controls>
+                        <source src="path/to/your/audio/file.wav" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
             </div>
+           
             <div class="chat-input-area">
-                <span class="recording-indicator" id="recording-indicator">Recording...</span>
-                <input type="text" id="chat-input" placeholder="Type your message...">
-                <button id="send-btn">Send</button>
+                <span class="recording-indicator" id="recording-indicator">Gravando...</span>
+                <input type="text" id="chat-input" placeholder="Escreva sua mensagem...">
+                <button id="send-btn">Enviar</button>
                 <button id="voice-btn">🎤</button>
                 <span class="timer" id="timer">00:00</span>
             </div>
@@ -435,23 +468,18 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+          document.addEventListener('DOMContentLoaded', function() {
             const chatInput = document.getElementById('chat-input');
             const sendBtn = document.getElementById('send-btn');
-            const chatContentServer1 = document.getElementById('chat-content-server1');
-            const chatContentServer2 = document.getElementById('chat-content-server2');
-            const chatContentServer3 = document.getElementById('chat-content-server3');
             const voiceBtn = document.getElementById('voice-btn');
             const recordingIndicator = document.getElementById('recording-indicator');
             const timer = document.getElementById('timer');
-            let activeChatContent = chatContentServer1; // default active server content
-            let activeChannel = "#general"; // default active channel
+            let activeChatContent = document.getElementById('chat-content-server1'); // default active server content
             let recordingInterval;
             let seconds = 0;
 
-            function sendMessage() {
-                const messageText = chatInput.value.trim();
-                if (messageText !== "") {
+            function sendMessage(messageText) {
+                if (messageText.trim() !== "") {
                     const messageElement = document.createElement('div');
                     messageElement.classList.add('message');
                     messageElement.innerHTML = `<p><strong>You:</strong> ${messageText}</p>`;
@@ -464,12 +492,12 @@
             chatInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    sendMessage();
+                    sendMessage(chatInput.value);
                 }
             });
 
             sendBtn.addEventListener('click', function() {
-                sendMessage();
+                sendMessage(chatInput.value);
             });
 
             // Handle voice recording
@@ -512,8 +540,17 @@
                             mediaRecorder.onstop = function() {
                                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                                 const audioUrl = URL.createObjectURL(audioBlob);
-                                const audio = new Audio(audioUrl);
-                                audio.play();
+                                const audioMessageElement = document.createElement('div');
+                                audioMessageElement.classList.add('audio-message');
+                                audioMessageElement.innerHTML = `
+                                    <p><strong>You:</strong> <em>Gravação de Áudio:</em></p>
+                                    <audio controls>
+                                        <source src="${audioUrl}" type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                `;
+                                activeChatContent.appendChild(audioMessageElement);
+                                activeChatContent.scrollTop = activeChatContent.scrollHeight; // Scroll to the bottom
                                 audioChunks = [];
                             };
                         })
@@ -542,12 +579,12 @@
                 item.addEventListener('click', function() {
                     channelItems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
-                    activeChannel = item.getAttribute('data-channel');
+                    const activeChannel = item.getAttribute('data-channel');
                     document.getElementById('current-channel').textContent = activeChannel;
                 });
             });
 
-            // Handle ligaçāo button
+            // Handle ligação button
             const ligacaoBtn = document.getElementById('ligacao-btn');
             const ligacaoJanela = document.getElementById('ligacao-janela');
             const fecharLigacaoBtn = document.getElementById('fechar-ligacao-btn');
@@ -562,6 +599,21 @@
                 ligacaoJanela.style.display = 'none';
                 circuloEsquerda.style.animationPlayState = 'paused'; // Pause animation
             });
+
+            // Handle ligação som
+            const ligacaoSom = document.getElementById('ligacao-som');
+
+            // This is for Bootstrap modal events; ensure Bootstrap is loaded if you use this
+            if (ligacaoJanela) {
+                ligacaoJanela.addEventListener('shown.bs.modal', () => {
+                    ligacaoSom.play();
+                });
+
+                fecharLigacaoBtn.addEventListener('click', () => {
+                    ligacaoSom.pause();
+                    ligacaoSom.currentTime = 0;
+                });
+            }
         });
     </script>
 </body>
