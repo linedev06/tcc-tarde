@@ -500,7 +500,7 @@
                 sendMessage(chatInput.value);
             });
 
-            // Handle voice recording
+          
             let mediaRecorder;
             let audioChunks = [];
 
@@ -550,7 +550,7 @@
                                     </audio>
                                 `;
                                 activeChatContent.appendChild(audioMessageElement);
-                                activeChatContent.scrollTop = activeChatContent.scrollHeight; // Scroll to the bottom
+                                activeChatContent.scrollTop = activeChatContent.scrollHeight; 
                                 audioChunks = [];
                             };
                         })

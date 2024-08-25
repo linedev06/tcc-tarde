@@ -93,19 +93,94 @@
       <br>
     </div>
     <center>
-    <div style=" width: 1300px; height: 500px; margin-top: 100px; border-radius: 30px; background-color: #0d1b50;">
-      <div class="project-detail">
-        <p> Descubra o porque você deve escolher a Tektõn.</p>
-        <hr class="ed-hr">
-      </div>
+      <div style="width: 1300px; height: 500px; margin-top: 100px; border-radius: 30px; background-color: #0d1b50;">
+        <div class="project-detail" style="text-align: center; padding-top: 20px;">
+          <h1 style="color: #FF9A00; font-family: 'Merriweather', serif;">Descubra o porquê você deve escolher a Tektõn.</h1>
+          <hr class="ed-hr" style="width: 50%; border: 1px solid #FF9A00;">
+        </div>
+      
 
+
+
+
+
+
+        <div style="width: 1300px; height: 500px; margin-top: 100px; border-radius: 30px; background-color: #0d1b50; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <div class="project-detail" style="text-align: center; padding-bottom: 40px;">
+            <h1 style="color: #FF9A00; font-family: 'Merriweather', serif; font-weight: 600; font-size: 36px;">Descubra o porquê você deve escolher a Tektõn.</h1>
+            <hr class="ed-hr" style="width: 50%; border: 1px solid #FF9A00; margin-top: 10px;">
+          </div>
+        
+          <div class="squares-container" style="display: flex; justify-content: space-around; width: 100%; padding: 0 50px; margin-top: -300px;">
+         
+  <button class="square" style="width: 250px; height: 250px; background-color: #3b5998; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: none; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+    <p style="color: #FF9A00; font-family: 'Lato', sans-serif; font-size: 22px; font-weight: 700; text-align: center; margin: 0;">Missão</p>
+    <div class="icon-mission" style="position: absolute; bottom: 150px; right: 10px; width: 100px; height: 100px; background: url('https://cdn-icons-png.flaticon.com/512/732/732197.png') no-repeat center; background-size: contain; opacity: 0.2; transform: rotate(10deg); transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;"></div>
+  </button>
+
+  
+  <button class="square" style="width: 250px; height: 250px; background-color: #3b5998; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: none; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+    <p style="color: #FF9A00; font-family: 'Lato', sans-serif; font-size: 22px; font-weight: 700; text-align: center; margin: 0;">Visão</p>
+    <div class="icon-vision" style="position: absolute; bottom: 10px; right: 10px; width: 60px; height: 60px; transition: transform 0.5s ease;">
+      <img src="https://cdn-icons-png.flaticon.com/512/159/159604.png" alt="Eye Icon" style="width: 100%; height: 100%; opacity: 0.8;">
     </div>
+  </button>
+
+  
+  <button class="square" style="width: 250px; height: 250px; background-color: #3b5998; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: none; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+    <p style="color: #FF9A00; font-family: 'Lato', sans-serif; font-size: 22px; font-weight: 700; text-align: center; margin: 0;">Valores</p>
+    <div class="icon-values" style="position: absolute; top: 10px; left: 160px; width: 80px; height: 80px; background: url('https://cdn-icons-png.flaticon.com/512/1487/1487502.png') no-repeat center; background-size: contain; opacity: 0.6; transition: transform 0.5s ease, opacity 0.5s ease;"></div>
+  </button>
+</div>
+
+<style>
+  .square:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .square:hover .icon-mission {
+    transform: rotate(360deg) scale(1.5) translate(-10px, -10px);
+    opacity: 0.7;
+    filter: brightness(1.5);
+  }
+
+  .square:hover .icon-vision {
+    transform: scale(1.2) translateY(-10px);
+  }
+
+  .square:hover .icon-values {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+
+  button:focus {
+    outline: none;
+  }
+</style>
+
+        
+        
   </center>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
    
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script>
       var swiper = new Swiper(".mySwiper", {
         loop: true,

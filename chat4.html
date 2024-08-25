@@ -46,15 +46,21 @@
 
     .message {
       margin-bottom: 10px;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
     }
 
     .message-bot {
-      text-align: left;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      padding: 10px;
       color: #333;
     }
 
     .message-user {
-      text-align: right;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 10px;
       color: #007bff;
     }
 
@@ -80,23 +86,47 @@
     .btn-send:hover {
       background-color: #ffc062;
     }
+
+    .options {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .option {
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background-color: #f0f0f0;
+    }
   </style>
 </head>
 
 <body>
 
-
   <div class="chat-container" style="position: relative;">
-    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="message message-bot">
+        Olá! Eu sou o Bot-Tektõn. Estou aqui para ajudá-lo com seu projeto de decoração. Qual foi o resultado do seu primeiro questionário? (Estilo A, B, C ou Padrão)
+        <div class="options">
+          <div class="option" onclick="sendMessage('Estilo A')">Estilo A</div>
+          <div class="option" onclick="sendMessage('Estilo B')">Estilo B</div>
+          <div class="option" onclick="sendMessage('Estilo C')">Estilo C</div>
+          <div class="option" onclick="sendMessage('Padrão')">Padrão</div>
+        </div>
+      </div>
+    </div>
     <input type="text" class="chat-input" id="user-input" placeholder="Digite sua resposta...">
     <button class="btn-send" onclick="sendMessage()">Enviar</button>
     <img src="img/latsflaubranco-removebg-preview.png" alt="" class="imagem-pequena">
   </div>
-
+  
   <script>
     const chatMessages = document.getElementById('chat-messages');
     const userInput = document.getElementById('user-input');
-
+  
     // Adiciona um evento de tecla ao campo de entrada do usuário
     userInput.addEventListener('keyup', function (event) {
       // Verifica se a tecla pressionada é "Enter" (código 13)
@@ -105,432 +135,114 @@
         sendMessage();
       }
     });
-    // Função para adicionar a mensagem inicial ao abrir o chat
-    window.onload = function () {
-      addInitialMessage();
-    };
-    // Função para adicionar uma mensagem fixa quando o chat é aberto
-    function addInitialMessage() {
-      const initialMessage = 'Para finalizar o atendimento, escreva quais foram os resultados obtidos para finalizar seu projeto. Caso haja dúvidas, escreva "?"';
-      addMessage(initialMessage, 'bot');
-    }
-
+  
     // Função para adicionar uma mensagem ao chat
     function addMessage(message, sender) {
       const messageDiv = document.createElement('div');
       messageDiv.classList.add('message', sender === 'user' ? 'message-user' : 'message-bot');
-      const senderName = sender === 'user' ? 'Usuário' : 'Bot-Tektõn'; // Define o nome do remetente
-      messageDiv.innerHTML = `<b>${senderName}:</b> ${message}`; // Adiciona o nome do remetente à mensagem
+      const senderName = messageDiv.innerHTML = `<b>${sender === 'user' ? 'Você' : 'Bot-Tektõn'}:</b> ${message}`;
       chatMessages.appendChild(messageDiv);
       chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
     }
-
-    function sendMessage() {
-      const userMessage = userInput.value;
-      addMessage(userMessage, 'user');
-      processMessage(userMessage);
+  
+    function sendMessage(message = userInput.value) {
+      addMessage(message, 'user');
       userInput.value = '';
+      processMessage(message);
     }
+    let currentQuestionnaire = 1;
 
-    function processMessage(message) {
-      if (message.toLowerCase().includes('olá')) {
-        addMessage('Olá! Como posso ajudar?', 'bot');
-      } else if (message.toLowerCase().includes('como você está?')) {
-        addMessage('Estou bem, obrigado por perguntar!', 'bot');
-      } else {
-        const result = getResult(message);
-        addMessage(result, 'bot');
-      }
+function processMessage(message) {
+  console.log('Message:', message);
+  // Process the message and respond accordingly
+  if (currentQuestionnaire === 1) {
+    if (message.includes('Estilo A') || message.includes('Estilo B') || message.includes('Estilo C') || message.includes('Padrão')) {
+      addMessage('Qual foi o resultado do seu segundo questionário? (Estilo A, Estilo B, Estilo C ou Padrão)', 'bot');
+      generateQuestionnaire2();
+      currentQuestionnaire = 2;
+    } else {
+      addMessage('Desculpe, não entendi sua mensagem. Por favor, tente novamente!', 'bot');
     }
-
-    function getResult(message) {
-      const trimmedMessage = message.toLowerCase().trim();
-      let result = '';
-
-      switch (trimmedMessage) {
-        case '?':
-          result = 'Algumas perguntas que você poderá fazer:\n';
-          result += '- Quero saber sobre o estilo A\n';
-          result += '- Estilo B\n';
-          result += '- Me explique sobre o estilo C\n';
-          result += '- Estilo D\n';
-          result += '- Quero entrar em contato com a Tektõn\n';
-          break;
-        case 'quero saber sobre o estilo a':
-        case 'estilo a':
-        case 'me explique sobre o estilo a':
-        case 'estilo a?':
-        case 'sobre o estilo A':
-        case 'explique o estilo a':
-        case 'fale sobre o estilo a':
-        case 'fale do estilo A':
-        case 'sobre estilo A':
-        case 'estilo a por favor':
-        case 'quero informações sobre o estilo a':
-        case 'quero saber sobre o estilo a, pode ser?':
-        case 'me conte sobre o estilo a':
-        case 'pode me falar sobre o estilo a?':
-        case 'fale do estilo a, por gentileza':
-        case 'diga sobre o estilo a':
-        case 'pode falar sobre o estilo a?':
-        case 'quero mais informações sobre o estilo a':
-        case 'informações sobre o estilo a':
-        case 'diga-me sobre o estilo a':
-          result = 'Estilo A: Isso indica um estilo de vida ativo e social, com um orçamento baixo para decoração e uma preferência por decoração moderna e minimalista. Essa pessoa provavelmente gosta de estar cercada por amigos e atividades sociais, prefere um ambiente limpo e organizado, e pode optar por móveis e decorações mais simples e contemporâneas.';
-          break;
-        case 'Tudo bem':
-        case 'Tudo bem?':
-        case 'Tudo-bem':
-        case 'tudo bem':
-        case 'tudo bem?':
-        case 'tudo-bem':
-        case 'tudo bom?':
-        case 'tudo ok?':
-        case 'tudo bom':
-        case 'tudo bom, e você?':
-        case 'tudo bem, e você?':
-        case 'você está bem?':
-        case 'está tudo bem?':
-        case 'está tudo bem':
-        case 'está tudo ok?':
-        case 'está tudo ok':
-        case 'está tudo bem contigo?':
-        case 'tá tudo bem?':
-        case 'tá tudo ok?':
-        case 'está tudo legal?':
-          result = 'Estou bem, obrigado por perguntar, e você?';
-          break;
-        case 'To bem':
-        case 'to bem':
-        case 'Estou bem':
-        case 'estou bem':
-        case 'to bem tambem':
-        case 'to bem também':
-        case 'tô bem':
-        case 'to ótimo':
-        case 'tô ótimo':
-        case 'estou ótimo':
-        case 'tudo ótimo':
-        case 'tudo ótimo, e você?':
-        case 'tô de boa':
-        case 'tô de boa, e você?':
-        case 'tô tranquilo':
-        case 'estou tranquilo':
-        case 'tô suave':
-        case 'tô suave, e você?':
-        case 'tudo suave':
-        case 'tudo suave, e você?':
-        case 'tudo tranquilo':
-          result = 'Ótimo!';
-          break;
-        case 'quero saber sobre o estilo b':
-        case 'estilo b':
-        case 'me explique sobre o estilo b':
-        case 'sobre o estilo b':
-        case 'estilo b?':
-        case 'explique o estilo b':
-        case 'fale sobre o estilo b':
-        case 'fale do estilo B':
-        case 'sobre estilo B':
-        case 'estilo b por favor':
-        case 'quero informações sobre o estilo b':
-        case 'quero saber sobre o estilo b, pode ser?':
-        case 'me conte sobre o estilo b':
-        case 'pode me falar sobre o estilo b?':
-        case 'fale do estilo b, por gentileza':
-        case 'diga sobre o estilo b':
-        case 'pode falar sobre o estilo b?':
-        case 'quero mais informações sobre o estilo b':
-        case 'informações sobre o estilo b':
-        case 'diga-me sobre o estilo b':
-          result = 'Estilo B: Este resultado sugere um estilo de vida calmo e reservado, com um orçamento médio para decoração e uma preferência por decoração clássica e tradicional. Essa pessoa provavelmente valoriza a tradição, a história e o conforto em seu espaço, optando por móveis e decorações que reflitam uma sensação de elegância e atemporalidade.';
-          break;
-        case 'quero saber sobre o estilo c':
-        case 'estilo c':
-        case 'me explique sobre o estilo c':
-        case 'sobre o estilo c':
-        case 'estilo c?':
-        case 'explique o estilo c':
-        case 'fale sobre o estilo c':
-        case 'fale do estilo C':
-        case 'sobre estilo C':
-        case 'estilo c por favor':
-        case 'quero informações sobre o estilo c':
-        case 'quero saber sobre o estilo c, pode ser?':
-        case 'me conte sobre o estilo c':
-        case 'pode me falar sobre o estilo c?':
-        case 'fale do estilo c, por gentileza':
-        case 'diga sobre o estilo c':
-        case 'pode falar sobre o estilo c?':
-        case 'quero mais informações sobre o estilo c':
-        case 'informações sobre o estilo c':
-        case 'diga-me sobre o estilo c':
-          result = 'Estilo C: Indica um estilo de vida profissional e organizado, com um orçamento alto para decoração e uma preferência por decoração rústica e natural. Essa pessoa pode ser orientada para a carreira, valorizando a funcionalidade e a praticidade em seu espaço, enquanto também deseja uma sensação de conexão com a natureza e materiais orgânicos em sua decoração.';
-          break;
-        case 'quero entrar em contato':
-        case 'quero entrar em contato com a Tektõn':
-        case 'contato':
-        case 'entrar em contato':
-        case 'entrar em contato com a Tektõn':
-        case 'fale comigo':
-        case 'mande mensagem':
-        case 'quero falar com vocês':
-        case 'falar com vocês':
-        case 'quero falar com a Tektõn':
-        case 'mandar mensagem':
-        case 'quero fazer contato':
-        case 'fazer contato':
-        case 'contato com a Tektõn':
-        case 'entrar em contato, por favor':
-        case 'entrar em contato agora':
-        case 'quero entrar em contato, pode ser?':
-        case 'fazer contato agora':
-        case 'mande mensagem agora':
-        case 'me mande mensagem':
-          result = 'Claro! Para entrar em contato, mande um email em: tekton.projetos01@gmail.com';
-          break;
-        case 'quero saber sobre o estilo d':
-        case 'estilo d':
-        case 'me explique sobre o estilo d':
-        case 'sobre o estilo d':
-        case 'estilo d?':
-        case 'explique o estilo d':
-        case 'fale sobre o estilo d':
-        case 'fale do estilo D':
-        case 'sobre estilo D':
-        case 'estilo d por favor':
-        case 'quero informações sobre o estilo d':
-        case 'quero saber sobre o estilo d, pode ser?':
-        case 'me conte sobre o estilo d':
-        case 'pode me falar sobre o estilo d?':
-        case 'fale do estilo d, por gentileza':
-        case 'diga sobre o estilo d':
-        case 'pode falar sobre o estilo d?':
-        case 'quero mais informações sobre o estilo d':
-        case 'informações sobre o estilo d':
-        case 'diga-me sobre o estilo d':
-          result = 'Estilo D: Este resultado representa um estilo de vida criativo e artístico, com um orçamento indefinido para decoração e uma preferência por decoração eclética e colorida. Essa pessoa pode ser expressiva, imaginativa e aberta a experimentar diferentes estilos e cores em seu espaço, refletindo sua personalidade vibrante e única.';
-          break;
-        case 'Qual é o seu estilo de decoração preferido?':
-        case 'seu estilo de decoração preferido?':
-        case 'qual o estilo de decoração que você prefere?':
-        case 'o estilo de decoração que você mais gosta?':
-        case 'seu estilo de decoração favorito?':
-        case 'qual é sua decoração preferida?':
-        case 'qual estilo de decoração você gosta?':
-        case 'gosta de qual estilo de decoração?':
-        case 'qual decoração você prefere?':
-        case 'seu estilo de decoração é qual?':
-        case 'tem preferência por algum estilo de decoração?':
-        case 'tem algum estilo de decoração que você prefira?':
-        case 'existe um estilo de decoração que você goste mais?':
-        case 'existe algum estilo de decoração que você goste mais?':
-        case 'você tem um estilo de decoração favorito?':
-        case 'você tem preferência por algum estilo de decoração?':
-        case 'você gosta mais de qual estilo de decoração?':
-        case 'tem um estilo de decoração que você gosta mais?':
-        case 'você prefere qual estilo de decoração?':
-          result = 'Não tenho um estilo de decoração preferido, mas posso ajudá-lo a explorar diferentes estilos e encontrar o que mais combina com você!';
-          break;
-        case 'Você prefere um ambiente mais moderno ou tradicional?':
-        case 'prefere um ambiente mais moderno ou tradicional?':
-        case 'ambiente mais moderno ou tradicional?':
-        case 'moderno ou tradicional?':
-        case 'prefere mais moderno ou tradicional?':
-        case 'ambiente moderno ou tradicional?':
-        case 'moderno ou ambiente tradicional?':
-        case 'mais moderno ou tradicional?':
-        case 'prefere ambiente moderno ou tradicional?':
-        case 'mais moderno ou ambiente tradicional?':
-        case 'prefere ambiente mais moderno ou tradicional?':
-        case 'ambiente moderno ou mais tradicional?':
-        case 'moderno ou mais tradicional?':
-        case 'ambiente tradicional ou mais moderno?':
-        case 'tradicional ou mais moderno?':
-        case 'mais tradicional ou moderno?':
-        case 'prefere mais tradicional ou moderno?':
-        case 'ambiente tradicional ou moderno?':
-        case 'tradicional ou moderno?':
-        case 'moderno ou tradicional, qual sua preferência?':
-          result = 'Não tenho preferência, ambos os estilos têm suas próprias características únicas e podem ser incríveis!';
-          break;
-        case 'Quais são as cores que você mais gosta de usar na decoração?':
-        case 'cores favoritas para decoração?':
-        case 'quais cores você prefere na decoração?':
-        case 'suas cores favoritas na decoração?':
-        case 'quais as cores que você mais gosta para decorar?':
-        case 'tem cores favoritas para decoração?':
-        case 'quais cores você gosta de usar na decoração?':
-        case 'tem preferência por cores na decoração?':
-        case 'prefere quais cores na decoração?':
-        case 'quais cores prefere para decoração?':
-        case 'quais cores você gosta mais para decorar?':
-        case 'tem preferência por cores na decoração?':
-        case 'quais cores você mais gosta de usar na decoração?':
-        case 'qual é a sua cor favorita para decorar?':
-        case 'qual sua cor favorita para decorar?':
-        case 'tem cor favorita para decoração?':
-        case 'quais cores você mais gosta para decoração?':
-        case 'gosta mais de usar quais cores na decoração?':
-        case 'tem cor preferida para decorar?':
-        case 'quais cores prefere para decoração?':
-          result = 'Admiro todas as cores, mas tons neutros são versáteis e podem criar uma base elegante para qualquer ambiente!';
-          break;
-        case 'Você tem alguma preferência por materiais de decoração, como madeira, metal ou vidro?':
-        case 'prefere madeira, metal ou vidro na decoração?':
-        case 'gosta mais de madeira, metal ou vidro?':
-        case 'tem preferência por algum material de decoração?':
-        case 'prefere usar madeira, metal ou vidro na decoração?':
-        case 'tem preferência por material de decoração?':
-        case 'gosta mais de usar madeira, metal ou vidro na decoração?':
-        case 'qual material de decoração você prefere?':
-        case 'tem algum material de decoração que você prefira?':
-        case 'gosta de usar qual material de decoração?':
-        case 'qual material prefere para decoração?':
-        case 'tem preferência por madeira, metal ou vidro na decoração?':
-        case 'prefere madeira, metal ou vidro na decoração?':
-        case 'gosta mais de usar qual material na decoração?':
-        case 'gosta mais de usar madeira, metal ou vidro na decoração?':
-        case 'tem algum material de decoração que goste mais?':
-        case 'tem material de decoração preferido?':
-        case 'prefere madeira, metal ou vidro para decorar?':
-        case 'tem alguma preferência por material de decoração?':
-          result = 'Todos esses materiais têm seu próprio charme. Depende do estilo que você deseja alcançar em sua decoração!';
-          break;
-        case 'Qual é a sua área favorita da casa para decorar?':
-        case 'área favorita para decorar?':
-        case 'onde você gosta mais de decorar?':
-        case 'gosta de decorar mais onde?':
-        case 'seu lugar favorito para decorar?':
-        case 'qual a sua área favorita para decorar?':
-        case 'onde prefere decorar mais?':
-        case 'gosta mais de decorar onde?':
-        case 'tem área preferida para decorar?':
-        case 'qual área você prefere para decorar?':
-        case 'qual é sua área favorita para decorar?':
-        case 'onde você prefere decorar mais?':
-        case 'gosta mais de decorar qual área?':
-        case 'tem lugar favorito para decorar?':
-        case 'onde você gosta de decorar mais?':
-        case 'gosta mais de decorar em qual lugar?':
-        case 'qual lugar prefere decorar mais?':
-        case 'tem área que gosta mais de decorar?':
-        case 'onde você mais gosta de decorar?':
-          result = 'Não tenho uma área favorita, cada espaço em uma casa tem seu próprio potencial para ser decorado de maneiras interessantes!';
-          break;
-        case 'Você tem interesse em incorporar elementos naturais, como plantas, na decoração?':
-        case 'elementos naturais na decoração?':
-        case 'quer usar plantas na decoração?':
-        case 'plantas na decoração, sim ou não?':
-        case 'gosta de incorporar elementos naturais?':
-        case 'quer elementos naturais na decoração?':
-        case 'tem interesse em usar plantas na decoração?':
-        case 'gosta de usar plantas na decoração?':
-        case 'quer incluir elementos naturais na decoração?':
-        case 'quer plantas na decoração?':
-        case 'prefere elementos naturais na decoração?':
-        case 'gosta de elementos naturais na decoração?':
-        case 'tem interesse em incluir plantas na decoração?':
-        case 'quer usar elementos naturais na decoração?':
-        case 'gosta de ter plantas na decoração?':
-        case 'prefere plantas na decoração?':
-        case 'quer elementos naturais, como plantas, na decoração?':
-        case 'tem interesse em elementos naturais na decoração?':
-        case 'quer ter elementos naturais, como plantas, na decoração?':
-        case 'gosta de ter elementos naturais na decoração?':
-          result = 'Elementos naturais podem adicionar frescor e vitalidade a qualquer ambiente. Eles são uma excelente escolha para uma decoração equilibrada!';
-          break;
-        case 'Qual é o orçamento aproximado que você tem disponível para o seu projeto de decoração?':
-        case 'seu orçamento para decoração?':
-        case 'qual o orçamento disponível para decoração?':
-        case 'quanto você planeja gastar na decoração?':
-        case 'orçamento aproximado para decoração?':
-        case 'tem orçamento para decoração?':
-        case 'qual é seu orçamento para decoração?':
-        case 'quanto tem disponível para decoração?':
-        case 'qual é o orçamento para decoração?':
-        case 'tem um orçamento definido para decoração?':
-        case 'tem algum orçamento para decoração?':
-        case 'qual é o orçamento aproximado para decoração?':
-        case 'quanto você quer gastar na decoração?':
-        case 'qual é o orçamento que você tem para decoração?':
-        case 'qual é o orçamento que você tem disponível para decoração?':
-        case 'quanto você tem disponível para gastar com decoração?':
-        case 'tem algum orçamento definido para decoração?':
-        case 'qual é o orçamento disponível para decoração?':
-        case 'qual o valor que você planeja gastar na decoração?':
-          result = 'O orçamento pode variar dependendo do tamanho e da escala do projeto, mas é importante ter em mente para criar um plano que atenda às suas necessidades!';
-          break;
-        case 'Você tem alguma restrição de espaço ou características específicas em sua casa que gostaria de considerar na decoração?':
-        case 'restrição de espaço ou características específicas?':
-        case 'espaço restrito ou características específicas?':
-        case 'alguma restrição de espaço que gostaria de considerar?':
-        case 'quais características específicas de sua casa você gostaria de considerar na decoração?':
-        case 'tem restrições de espaço ou características específicas em sua casa?':
-        case 'tem alguma restrição de espaço para considerar na decoração?':
-        case 'tem espaço restrito ou características específicas para considerar?':
-        case 'tem alguma característica específica em sua casa que gostaria de considerar na decoração?':
-        case 'tem restrição de espaço que gostaria de considerar na decoração?':
-        case 'tem características específicas em sua casa que gostaria de considerar na decoração?':
-        case 'tem alguma característica específica em seu espaço para considerar na decoração?':
-        case 'tem alguma restrição de espaço para levar em conta na decoração?':
-        case 'tem alguma característica específica na sua casa que gostaria de considerar na decoração?':
-        case 'tem alguma restrição de espaço para considerar na decoração?':
-        case 'tem alguma característica específica em sua casa que gostaria de levar em conta na decoração?':
-        case 'tem alguma restrição de espaço para incluir na decoração?':
-          result = 'Considerar as características específicas de um espaço é essencial para criar uma decoração funcional e harmoniosa!';
-          break;
-        case 'Quais são as suas inspirações de design ou influências favoritas?':
-        case 'inspirações de design favoritas?':
-        case 'quais são suas influências de design favoritas?':
-        case 'o que te inspira no design?':
-        case 'o que te influencia no design?':
-        case 'tem inspirações de design favoritas?':
-        case 'tem alguma influência de design favorita?':
-        case 'tem inspiração favorita de design?':
-        case 'quais são suas inspirações de design favoritas?':
-        case 'tem alguma inspiração de design favorita?':
-        case 'tem influência favorita de design?':
-        case 'quais são suas influências favoritas de design?':
-        case 'o que te inspira no mundo do design?':
-        case 'o que te influencia no mundo do design?':
-        case 'o que te inspira em termos de design?':
-        case 'o que te influencia em termos de design?':
-        case 'tem alguma inspiração de design que goste?':
-        case 'tem alguma influência de design que goste?':
-          result = 'As inspirações de design podem vir de várias fontes, desde revistas de decoração até viagens e experiências pessoais!';
-          break;
-        case 'Como você imagina o ambiente ideal em sua casa?':
-        case 'ambiente ideal em sua casa?':
-        case 'como você sonha com sua casa ideal?':
-        case 'como é o espaço perfeito para você?':
-        case 'como é o ambiente dos seus sonhos?':
-        case 'tem ideia de como seria o ambiente ideal em sua casa?':
-        case 'como você visualiza o ambiente ideal em sua casa?':
-        case 'como seria o ambiente dos seus sonhos?':
-        case 'tem algum sonho relacionado ao ambiente da sua casa?':
-        case 'como você imagina o espaço perfeito para você?':
-        case 'como seria o espaço ideal em sua casa?':
-        case 'como é o ambiente que você sonha em ter em sua casa?':
-        case 'qual é o ambiente que você sonha em ter em sua casa?':
-        case 'tem uma imagem do ambiente ideal em sua casa?':
-        case 'como seria o ambiente ideal na sua casa?':
-        case 'como é o ambiente ideal na sua imaginação?':
-        case 'como você imagina o ambiente dos seus sonhos?':
-        case 'qual é o ambiente dos seus sonhos em casa?':
-        case 'como você imagina o espaço dos seus sonhos?':
-          result = 'Imagine um espaço que reflete sua personalidade e estilo de vida, onde você se sinta confortável e feliz!';
-          break;
-        default:
-          result = 'Desculpe, não entendi. Por favor, tente novamente.';
-          break;
-      }
-
-      return result;
+  } else if (currentQuestionnaire === 2) {
+    if (message.includes('Estilo A') || message.includes('Estilo B') || message.includes('Estilo C') || message.includes('Padrão')) {
+      addMessage('Terceiro questionário:', 'bot');
+      generateQuestionnaire3();
+      currentQuestionnaire = 3;
+    } else {
+      addMessage('Desculpe, não entendi sua mensagem. Por favor, tente novamente!', 'bot');
     }
+  } else if (currentQuestionnaire === 3) {
+    if (message.includes('Opção 1') || message.includes('Opção 2') || message.includes('Opção 3') || message.includes('Opção 4')) {
+      addMessage('Suas informações foram registradas com sucesso! Agora, posso ajudá-lo com seu projeto de decoração.', 'bot');
+      initAI();
+    } else {
+      addMessage('Desculpe, não entendi sua mensagem. Por favor, tente novamente!', 'bot');
+    }
+  }
+}
 
-  </script>
+function generateQuestionnaire2() {
+  const questionnaire2 = `
+    <div class="message message-bot">
+      Segundo questionário:
+      <div class="options">
+        <div class="option" onclick="sendMessage('Estilo A')">Estilo A</div>
+        <div class="option" onclick="sendMessage('Estilo B')">Estilo B</div>
+        <div class="option" onclick="sendMessage('Estilo C')">Estilo C</div>
+        <div class="option" onclick="sendMessage('Padrão')">Padrão</div>
+      </div>
+    </div>
+  `;
+  chatMessages.innerHTML += questionnaire2;
+}
+function generateQuestionnaire3() {
+  const questionnaire3 = `
+    <div class="message message-bot">
+      Terceiro questionário:
+      <div class="options">
+        <div class="option" onclick="sendMessage('Estilo A')">Estilo A</div>
+        <div class="option" onclick="sendMessage('Estilo B')">Estilo B</div>
+        <div class="option" onclick="sendMessage('Estilo C')">Estilo C</div>
+        <div class="option" onclick="sendMessage('Padrão')">Padrão</div>
+      </div>
+    </div>
+  `;
+  chatMessages.innerHTML += questionnaire3;
+}
 
-</body>
+function generateQuestionnaire3() {
+ 
+     const questionnaire3 = `
+    <div class="message message-bot">
+      Terceiro questionário:
+      <div class="options">
+        <div class="option" onclick="sendMessage('Estilo A')">Estilo A</div>
+        <div class="option" onclick="sendMessage('Estilo B')">Estilo B</div>
+        <div class="option" onclick="sendMessage('Estilo C')">Estilo C</div>
+        <div class="option" onclick="sendMessage('Padrão')">Padrão</div>
+      </div>
+    </div>
+  `;
+  chatMessages.innerHTML += questionnaire3;
+}
+  function respondToUser(message) {
+    // Responder ao usuário com uma mensagem inteligente
+    const responses = [
+      'Ah, entendi! Você gostaria de...',
+      'Ok, vamos lá! Você pode me dizer mais sobre...',
+      'Certo, entendi. Você está procurando por...',
+    ];
+    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+    addMessage(randomResponse + ' ' + message, 'bot');
+  }
 
-</html>
+  function processAIResponse(message) {
+    // Processar a resposta do usuário e responder com uma mensagem inteligente
+    respondToUser(message);
+  }
+
+  // Adiciona um evento de click ao botão de enviar
+  document.getElementById('btn-send').addEventListener('click', function () {
+    sendMessage();
+  });
+</script>
