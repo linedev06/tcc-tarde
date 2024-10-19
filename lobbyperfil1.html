@@ -48,6 +48,8 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            
         }
         .nav button i {
             margin-right: 10px;
@@ -161,6 +163,9 @@
             border-radius: 4px;
         }
         .profile button, .settings button {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             background-color: #0b1742;
             color: #ffffff;
             border: none;
@@ -185,11 +190,96 @@
             font-weight: 500;
             margin-bottom: 5px;
         }
+        .map-container {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 1000px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* Enable positioning for text overlay */
+}
+
+.map {
+    width: 100%;
+    height: 400px; /* Increased height for better visibility */
+}
+
+.map-info {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif; /* Font style */
+    color: #333;
+}
+
+.map-info h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.map-info ul {
+    padding-left: 20px; /* Indentation for list items */
+}
+
+.map-info button {
+    display: block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF; /* Button color */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.map-info button:hover {
+    background-color: #ff9a00;
+    
+}
+
+.info-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(240, 240, 240, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: solid 1px #ff9a00;
+}
+
+.info-section h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+}
+
+.info-section p {
+    margin: 0;
+    font-size: 16px;
+}
     </style>
     <script>
         let plantsVisible = false; // Track visibility state of the plants
 
-        // Function to show or hide user's plants
+      
+        ocument.addEventListener('DOMContentLoaded', function() {
+            showWelcomeMessage(); // Exibe a mensagem de boas-vindas quando a página carrega
+        });
+
+        function showWelcomeMessage() {
+            document.getElementById('content').innerHTML = `
+                <div class="welcome-message">
+                    <h2>Bem-vindo ao Lobby Tektõn!</h2>
+                    <p>Selecione uma opção no menu acima para começar.</p>
+                </div>`;
+        }
+
+
         function togglePlants() {
             if (plantsVisible) {
                 // Clear content
@@ -228,7 +318,8 @@
                 </div>
                 <h3>Conquistas</h3>
                 <div class="badge">Primeira Planta Adquirida</div>
-                <div class="badge">Projeto Concluído</div>`;
+                <div class="badge">Projeto Concluído</div>`
+                ;
         }
 
         // Function to navigate to the chat page
@@ -236,33 +327,190 @@
             window.location.href = 'p3.html';
         }
 
-        // Function to show user's profile
         function showProfile() {
-            document.getElementById('content').innerHTML = `
-                <div class="profile">
-                    <h2>Perfil</h2>
-                    <p><strong>Nome:</strong> Cleitinho</p>
-                    <p><strong>Email:</strong> Café.comToddy@example.com</p>
-                    <p><strong>Telefone:</strong> (11) 1234-5678</p>
-                    <button>Editar Perfil</button>
-                </div>`;
-        }
+    document.getElementById('content').innerHTML = `
+        <div class="profile">
+            <h2>Perfil</h2>
+            <p><strong>Nome:</strong> Cleitinho</p>
+            <p><strong>Email:</strong> Café.comToddy@example.com</p>
+            <p><strong>Telefone:</strong> (11) 1234-5678</p>
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                <button  onclick="showSettings()" style="display: flex; align-items: center;">
+                    <i class="fas fa-pencil-alt" style="color: white; font-size: 16px; margin-right: 5px;"></i>
+                    Editar Perfil
+                </button>
+            </div>
+        </div>
+    `;
 
-        // Function to show settings
+}
+
         function showSettings() {
             document.getElementById('content').innerHTML = `
                 <div class="settings">
                     <h2>Configurações</h2>
                     <div class="option-group">
-                        <label for="language">Idioma:</label>
-                        <select id="language">
-                            <option value="pt">Português</option>
-                            <option value="en">Inglês</option>
-                        </select>
+                        <i class="fas fa-language icon"></i>
+                        <div>
+                            <label for="language">Idioma:</label>
+                            <select id="language">
+                                <option value="pt">Português</option>
+                                <option value="en">Inglês</option>
+                                <option value="es">Espanhol</option>
+                            </select>
+                        </div>
                     </div>
-                    <button>Salvar Configurações</button>
+                    <div class="option-group">
+                        <i class="fas fa-lock icon"></i>
+                        <div>
+                            <label for="password">Alterar Senha:</label>
+                            <input type="password" id="password" placeholder="Nova Senha">
+                        </div>
+                    </div>
+                   
+                    <div class="option-group">
+                        <i class="fas fa-user icon"></i>
+                        <div>
+                            <label for="username">Nome de Usuário:</label>
+                            <input type="text" id="username" placeholder="Nome de Usuário">
+                        </div>
+                    </div>
+                    <div class="option-group">
+                        <i class="fas fa-envelope icon"></i>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="option-group">
+                        <i class="fas fa-phone icon"></i>
+                        <div>
+                            <label for="phone">Telefone:</label>
+                            <input type="tel" id="phone" placeholder="Telefone">
+                        </div>
+                    </div>
+                    <div class="option-group">
+                        <i class="fas fa-calendar icon"></i>
+                        <div>
+                            <label for="dob">Data de Nascimento:</label>
+                            <input type="date" id="dob">
+                        </div>
+                    </div>
+                    <div class="option-group">
+                        <i class="fas fa-map-marker-alt icon"></i>
+                        <div>
+                            <label for="address">Endereço:</label>
+                            <input type="text" id="address" placeholder="Endereço">
+                        </div>
+                    </div>
+                    <div class="option-group">
+                        <i class="fas fa-palette icon"></i>
+                        <div>
+                            <label for="theme">Tema:</label>
+                            <select id="theme">
+                                <option value="light">Claro</option>
+                                <option value="dark">Escuro</option>
+                                <option value="blue">Azul</option>
+                                <option value="green">Verde</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="saveChanges()">Salvar Alterações</button>
                 </div>`;
         }
+
+        // Function to save changes in settings
+        function saveChanges() {
+            // Logic to save changes
+            alert('Alterações salvas com sucesso!');
+        }
+
+        document.addEventListener('DOMContentLoaded', showSettings);
+ 
+
+
+
+
+
+        function showMap() {
+    // Clear content
+    document.getElementById('content').innerHTML = '';
+
+    // Create the information section
+    const infoSection = document.createElement('div');
+    infoSection.className = 'info-section';
+    infoSection.innerHTML = `
+        <h2>Encontre o Local Perfeito para Seu Projeto</h2>
+        <p>Este mapa interativo foi criado para ajudar você a descobrir as melhores localizações disponíveis para seu tão sonhado projeto. Explore áreas ideais para construção, lazer e indústria, e clique nos pontos destacados para obter mais informações. Dê o primeiro passo em direção ao sucesso do seu projeto!</p>
+    `;
+
+    // Create the map container
+    const mapContainer = document.createElement('div');
+    mapContainer.className = 'map-container';
+
+    const map = document.createElement('iframe');
+    map.className = 'map';
+    map.id = 'mapFrame'; // Assigning an ID to the iframe for easy access
+    map.src = 'https://www.openstreetmap.org/export/embed.html?bbox=-74.00597%2C40.71278%2C-73.98597%2C40.72278&layer=mapnik&marker=40.71778%2C-74.00597';
+    map.frameBorder = 0;
+    map.allowFullscreen = true;
+
+    // Map info section
+    const mapInfo = document.createElement('div');
+    mapInfo.className = 'map-info';
+    mapInfo.innerHTML = `
+        <h3>Localizações disponíveis</h3>
+        <ul>
+            <li><strong>Local A:</strong> Excelente para construção de edifícios.</li>
+            <li><strong>Local B:</strong> Ótimo para áreas de lazer.</li>
+            <li><strong>Local C:</strong> Ideal para instalações industriais.</li>
+        </ul>
+        <button onclick="getLocationDetails('A')">Ver Detalhes do Local A</button>
+        <button onclick="getLocationDetails('B')">Ver Detalhes do Local B</button>
+        <button onclick="getLocationDetails('C')">Ver Detalhes do Local C</button>
+    `;
+
+    // Append the info section, map, and map info to the content
+    document.getElementById('content').appendChild(infoSection);
+    mapContainer.appendChild(map);
+    mapContainer.appendChild(mapInfo);
+    document.getElementById('content').appendChild(mapContainer);
+}
+
+function getLocationDetails(location) {
+    let details = '';
+    let lat, lng;
+
+    switch(location) {
+        case 'A':
+            details = 'Local A é uma área central com acesso fácil a transporte público. Ideal para edifícios comerciais e residenciais.';
+            lat = 40.71778; // Coordenada fictícia para Local A
+            lng = -74.00597;
+            break;
+        case 'B':
+            details = 'Local B é um parque natural que oferece espaço para atividades ao ar livre, perfeito para famílias.';
+            lat = 40.72078; // Coordenada fictícia para Local B
+            lng = -74.00197;
+            break;
+        case 'C':
+            details = 'Local C possui infraestrutura industrial adequada, incluindo rede elétrica e água potável.';
+            lat = 40.71578; // Coordenada fictícia para Local C
+            lng = -73.99597;
+            break;
+        default:
+            details = 'Local não encontrado.';
+    }
+
+    alert(details);
+
+    // Update the map to center on the selected location
+    const mapFrame = document.getElementById('mapFrame');
+    mapFrame.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.002}%2C${lat-0.002}%2C${lng+0.002}%2C${lat+0.002}&layer=mapnik&marker=${lat}%2C${lng}`;
+}
+
+    </script>
+
+       
     </script>
 </head>
 <body>
@@ -284,9 +532,13 @@
     <div class="container">
         <div class="nav">
             <button onclick="togglePlants()"><i class="fas fa-home"></i> Minhas Plantas</button>
+            <button onclick="showMap()" style="display: flex; align-items: center;">
+                <i class="fas fa-map-marker-alt" style="color: white; font-size: 16px; margin-right: 5px;"></i>
+                Mapa
+            </button>
             <button onclick="showChat()"><i class="fas fa-comments"></i> Chat com Arquiteto</button>
             <button onclick="showProfile()"><i class="fas fa-user"></i> Perfil</button>
-            <button onclick="showSettings()"><i class="fas fa-cog"></i> Configurações</button>
+          
         </div>
         <div id="content" class="content">
             <h2>Bem-vindo ao Lobby Tektõn!</h2>
@@ -296,3 +548,4 @@
    
 </body>
 </html>
+<div></div>

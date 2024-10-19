@@ -360,6 +360,183 @@
     opacity: 1;
   }
 }
+
+
+.features-toggle {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background-color: #FF9A00;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 0;
+            margin-bottom: 230px;
+            margin-left: 25px;
+        }
+
+        .features-toggle:hover {
+            background-color: #ffa533;
+        }
+
+        .features-area {
+            position: fixed;
+            bottom: 350px;
+            left: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 300px;
+            display: none; /* Inicialmente oculto */
+            z-index: 10;
+            border: solid 3px #FF9A00;
+        }
+
+        .feature {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+            
+        }
+
+        .feature:hover {
+            border-color: #FF9A00;
+        }
+
+        .feature h4 {
+            margin: 0;
+            color: #FF9A00;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #FF9A00;
+            width: 0; /* Start with 0% width */
+            transition: width 0.3s ease;
+        }
+
+        .feedback-section {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9f5e9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-section h4 {
+            margin: 0;
+            color: #333;
+        }
+
+        .feedback-section p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+
+       
+        .feedback-section h4 {
+            margin: 0;
+            color: #333;
+        }
+
+        .feedback-section p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .feedback-input {
+            margin-top: 10px;
+            display: flex;
+        }
+
+        .feedback-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ffa533;
+            border-radius: 4px;
+            width: 1px;
+        }
+
+        .feedback-input button {
+            margin-left: 10px;
+            background-color: #FF9A00;
+            border: none;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .feedback-input button:hover {
+            background-color: #ffa533;
+        }
+
+
+        .poll-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .poll-section p {
+            font-weight: bold;
+        }
+
+        .poll-section button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #0B1742;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .poll-section button:hover {
+            background-color: #FF9A00;
+        }
+
+        .poll-result {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #0B1742;
+        }
+
+        .back-btn {
+            background-color: #FF9A00;
+            border-radius: 7px;
+            border: none;
+            color: #fff;
+            margin-bottom: 50px;
+            width: 150px;
+            height: 30px;
+            margin-left: 40px;
+        }
+
+        /* Estilo para o <hr> */
+        .custom-hr {
+            border: none;
+            height: 1px;
+            background-color: #202020cc;
+            margin-bottom: 0px;
+            width: 210px;
+        }
     </style>
 </head>
 <body>
@@ -378,16 +555,48 @@
                     <li data-channel="#Random">#Random</li>
                     <li data-channel="#Voice-chat">#Voice-chat</li>
                 </ul>
-                <div>
-                    <hr style="margin-top: 30px; border: none; height: 1px; background-color: #FF9A00;">
+                <hr>
+                <!-- Novas Funcionalidades -->
+                <button class="features-toggle" onclick="toggleFeatures()">Status e Feedback</button>
+                <div class="features-area" id="featuresArea">
+                    <div class="feature">
+                        <h4>Status do Projeto</h4>
+                        <p>Acompanhe o progresso atual do projeto.</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <h4>Feedback do Cliente</h4>
+                        <p>Deixe seu feedback sobre o projeto.</p>
+                        <div class="feedback-section">
+                            <h4>Feedback Recente:</h4>
+                            <p id="recent-feedback">Adoramos a nova abordagem de design!</p>
+                            <div class="feedback-input">
+                                <input type="text" id="feedback-input" placeholder="Escreva seu feedback...">
+                                <button id="submit-feedback">Enviar</button>
+                            </div>
+                           <div class="poll-section">
+                            <p><strong>Enquete:</strong> O que você achou?</p>
+                            <button onclick="voteFeedback(true)">👍 Positivo</button>
+                            <button onclick="voteFeedback(false)">👎 Negativo</button>
+                            <p id="vote-result" class="poll-result"></p>
+                        </div>
+                    </div>
                 </div>
-                <button 
-    style="margin-top: 100px; width: 120px; height: 30px; border-radius: 10px; background-color: #FF9A00; border: solid 4px #FF9A00; color: #fff; margin-left: 45px;" 
-    onclick="window.location.href='lobbyperfil1.html';">
-    Voltar
-</button>
+                
             </div>
+        </div>
+        <div style="margin-bottom: 90px;">
+            <hr class="custom-hr">
+        </div>
+        <button class="back-btn" onclick="location.href='lobbyperfil1.html'">Voltar</button>
+  
+  
         </aside>
+               
+                
+                
         
         <main class="chat-area">
             <div class="chat-header">
@@ -471,8 +680,13 @@
                 <button id="send-btn">Enviar</button>
                 <button id="voice-btn">🎤</button>
                 <span class="timer" id="timer">00:00</span>
+                
             </div>
+           
         </main>
+
+ 
+
     </div>
 
     <script>
@@ -623,6 +837,34 @@
                 });
             }
         });
+
+         function toggleFeatures() {
+            const featuresArea = document.getElementById('featuresArea');
+            if (featuresArea.style.display === 'none' || featuresArea.style.display === '') {
+                featuresArea.style.display = 'block';
+            } else {
+                featuresArea.style.display = 'none';
+            }
+        }
+
+        document.getElementById('submit-feedback').onclick = function() {
+            const feedbackInput = document.getElementById('feedback-input');
+            const recentFeedback = document.getElementById('recent-feedback');
+            recentFeedback.textContent = feedbackInput.value || "Feedback vazio. Por favor, escreva algo.";
+            feedbackInput.value = '';
+        };
+
+        let positiveVotes = 0;
+        let negativeVotes = 0;
+
+        function voteFeedback(isPositive) {
+            if (isPositive) {
+                positiveVotes++;
+            } else {
+                negativeVotes++;
+            }
+            document.getElementById('vote-result').textContent = `👍 ${positiveVotes} | 👎 ${negativeVotes}`;
+        }
     </script>
 </body>
 </html>
