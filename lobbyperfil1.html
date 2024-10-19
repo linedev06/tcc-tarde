@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby Tektõn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styleinicio2.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #0b1742;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding-top: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .nav {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .nav button {
+            background-color: #ff9a00;
+            color: #ffffff;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        .nav button i {
+            margin-right: 10px;
+        }
+        .nav button:hover {
+            background-color: #e88a00;
+            transform: translateY(-2px);
+        }
+        .nav button:active {
+            transform: translateY(2px);
+        }
+        .content {
+            width: 100%;
+            max-width: 1000px;
+            background-color: #f4f4f4;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .footer {
+            background-color: #0b1742;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .plants-list {
+            list-style: none;
+            padding: 0;
+        }
+        .plants-list li {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .plants-list li h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .plants-list li button {
+            background-color: #ff9a00;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .plants-list li button:hover {
+            background-color: #e88a00;
+            transform: translateY(-2px);
+        }
+        .plants-list li button:active {
+            transform: translateY(2px);
+        }
+        .progress-bar-container {
+            margin-top: 20px;
+        }
+        .progress-bar {
+            background-color: #ddd;
+            border-radius: 20px;
+            padding: 3px;
+        }
+        .progress-bar-fill {
+            background-color: #ff9a00;
+            height: 20px;
+            border-radius: 20px;
+            width: 50%; /* Example width, should be dynamic */
+            transition: width 0.3s;
+        }
+        .badge {
+            display: inline-block;
+            background-color: #ff9a00;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 10px 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .profile, .settings {
+            text-align: left;
+        }
+        .profile h2, .settings h2 {
+            border-bottom: 2px solid #ff9a00;
+            padding-bottom: 10px;
+        }
+        .profile p, .settings p {
+            margin: 10px 0;
+        }
+        .profile input, .settings input, .settings select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .profile button, .settings button {
+            background-color: #0b1742;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .profile button:hover, .settings button:hover {
+            background-color: #0a1538;
+            transform: translateY(-2px);
+        }
+        .profile button:active, .settings button:active {
+            transform: translateY(2px);
+        }
+        .settings .option-group {
+            margin: 20px 0;
+        }
+        .settings .option-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+    </style>
+    <script>
+        let plantsVisible = false; // Track visibility state of the plants
+
+        // Function to show or hide user's plants
+        function togglePlants() {
+            if (plantsVisible) {
+                // Clear content
+                document.getElementById('content').innerHTML = '';
+                plantsVisible = false;
+            } else {
+                // Show plants
+                showPlants();
+                plantsVisible = true;
+            }
+        }
+
+        // Function to display user's plants
+        function showPlants() {
+            document.getElementById('content').innerHTML = `
+                <h2>Minhas Plantas</h2>
+                <ul class="plants-list">
+                    <li>
+                        <h3>Planta 1</h3>
+                        <button>Visualizar</button>
+                    </li>
+                    <li>
+                        <h3>Planta 2</h3>
+                        <button>Visualizar</button>
+                    </li>
+                    <li>
+                        <h3>Planta 3</h3>
+                        <button>Visualizar</button>
+                    </li>
+                </ul>
+                <div class="progress-bar-container">
+                    <h3>Progresso do Projeto</h3>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: 50%;"></div>
+                    </div>
+                </div>
+                <h3>Conquistas</h3>
+                <div class="badge">Primeira Planta Adquirida</div>
+                <div class="badge">Projeto Concluído</div>`;
+        }
+
+        // Function to navigate to the chat page
+        function showChat() {
+            window.location.href = 'p3.html';
+        }
+
+        // Function to show user's profile
+        function showProfile() {
+            document.getElementById('content').innerHTML = `
+                <div class="profile">
+                    <h2>Perfil</h2>
+                    <p><strong>Nome:</strong> Cleitinho</p>
+                    <p><strong>Email:</strong> Café.comToddy@example.com</p>
+                    <p><strong>Telefone:</strong> (11) 1234-5678</p>
+                    <button>Editar Perfil</button>
+                </div>`;
+        }
+
+        // Function to show settings
+        function showSettings() {
+            document.getElementById('content').innerHTML = `
+                <div class="settings">
+                    <h2>Configurações</h2>
+                    <div class="option-group">
+                        <label for="language">Idioma:</label>
+                        <select id="language">
+                            <option value="pt">Português</option>
+                            <option value="en">Inglês</option>
+                        </select>
+                    </div>
+                    <button>Salvar Configurações</button>
+                </div>`;
+        }
+    </script>
+</head>
+<body>
+    
+    <div class="navbar opacity" id="navbar">
+        <div id="icones">
+            <a href="#conteudo1"><img src="img/latsflaubranco-removebg-preview.png" alt="Logo Tektõn"></a>
+            <a id="home" href="lobbyperfil1.html" style="color: #FF9A00;">Home</a>
+            <a id="ajuda" href="ajuda.html">Ajuda</a>
+            <a id="sair" href="index.html">Sair </a>
+        </div>
+        <div id="linha"></div>
+    </div>
+ 
+</head>
+
+    <div style="height: 150px;"></div>
+<body>
+    <div class="container">
+        <div class="nav">
+            <button onclick="togglePlants()"><i class="fas fa-home"></i> Minhas Plantas</button>
+            <button onclick="showChat()"><i class="fas fa-comments"></i> Chat com Arquiteto</button>
+            <button onclick="showProfile()"><i class="fas fa-user"></i> Perfil</button>
+            <button onclick="showSettings()"><i class="fas fa-cog"></i> Configurações</button>
+        </div>
+        <div id="content" class="content">
+            <h2>Bem-vindo ao Lobby Tektõn!</h2>
+            <p>Selecione uma opção no menu acima para começar.</p>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Tektõn. Todos os direitos reservados.</p>
+    </div>
+</body>
+</html>
