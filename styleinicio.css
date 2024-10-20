@@ -661,6 +661,8 @@ footer a {
   width: 1000px;
   height: 500px;
   z-index: -10;
+  border: solid 3px #ff9a00;
+  border-radius: 10px;
 
 }
 
@@ -692,6 +694,7 @@ footer a {
   margin-left: 50px;
   align-items: center;
   padding: 50px;
+ 
 }
 
 .project-detail {
@@ -778,6 +781,7 @@ footer a {
   box-sizing: border-box;
   transition: border-color 0.3s ease;
   background-color: #f5f5f5;
+  margin-left: 250px;
 }
 
 .form-container:hover {
