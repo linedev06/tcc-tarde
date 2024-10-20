@@ -549,6 +549,66 @@
     margin-right: 10px; /* Espaço entre as imagens */
     border-radius: 5px; /* Bordas arredondadas */
 }
+
+.modal {
+    display: none; /* Oculto por padrão */
+    position: fixed; /* Fica no topo da tela */
+    z-index: 1000; /* Fica acima de outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Permite rolagem se necessário */
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro com opacidade */
+    
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%; /* Largura da imagem */
+    max-width: 700px; /* Largura máxima */
+    margin-top: 120px;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.caption {
+    margin: auto;
+    display: block;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#prev-btn {
+    left: 10px; /* Posição do botão anterior */
+    margin-left: 450px;
+}
+
+#next-btn {
+    right: 10px; /* Posição do botão seguinte */
+    margin-right: 450px;
+}
     </style>
 </head>
 <body>
@@ -598,6 +658,13 @@
                                 <img src="img/PREDIO 1.jpg" alt="Imagem 1" class="sent-image">
                                 <img src="img/PREDIO 2.jpg" alt="Imagem 2" class="sent-image">
                                 <img src="img/PREDIO 3.jpg" alt="Imagem 3" class="sent-image">
+                            </div>
+                            <div id="image-modal" class="modal">
+                                <span class="close" id="close-modal">&times;</span>
+                                <img class="modal-content" id="modal-image" alt="Imagem Ampliada">
+                                <div class="caption" id="caption"></div>
+                                <button id="prev-btn" class="nav-btn">❮</button>
+                                <button id="next-btn" class="nav-btn">❯</button>
                             </div>
                         </div>
                     </div>
@@ -883,6 +950,54 @@
             }
             document.getElementById('vote-result').textContent = `👍 ${positiveVotes} | 👎 ${negativeVotes}`;
         }
+        document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('.sent-image');
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-image');
+    const captionText = document.getElementById('caption');
+    const closeModal = document.getElementById('close-modal');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    let currentIndex = 0;
+
+    // Função para abrir o modal
+    images.forEach((img, index) => {
+        img.addEventListener('click', function() {
+            currentIndex = index;
+            openModal(img.src, img.alt);
+        });
+    });
+
+    // Função para abrir o modal
+    function openModal(src, alt) {
+        modal.style.display = 'block';
+        modalImg.src = src;
+        captionText.innerHTML = alt;
+    }
+
+    // Fechar o modal
+    closeModal.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // Navegação entre imagens
+    prevBtn.onclick = function() {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+        updateModalImage();
+    }
+
+    nextBtn.onclick = function() {
+        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+        updateModalImage();
+    }
+
+    function updateModalImage() {
+    const img = images[currentIndex];
+    modalImg.src = img.src;
+    captionText.innerHTML = img.alt; // Corrected the variable name
+}
+});
     </script>
 </body>
 </html>
