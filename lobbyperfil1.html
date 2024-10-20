@@ -430,8 +430,6 @@
 
 
 
-
-
         function showMap() {
     // Clear content
     document.getElementById('content').innerHTML = '';
@@ -508,10 +506,112 @@ function getLocationDetails(location) {
     mapFrame.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.002}%2C${lat-0.002}%2C${lng+0.002}%2C${lat+0.002}&layer=mapnik&marker=${lat}%2C${lng}`;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+function clearPreviousInfo() {
+    const existingInfo = document.querySelector('.info-section');
+    if (existingInfo) {
+        existingInfo.remove(); // Remove a seção de informações anterior
+    }
+}
+
+function showLocationInfo(location) {
+    clearPreviousInfo(); // Limpa informações anteriores
+
+    let info = '';
+    let schools = ['Escola A', 'Escola B', 'Escola C'];
+    let hospitals = ['Hospital A', 'Hospital B'];
+
+    switch(location) {
+        case 'A':
+            info = 'Local A: Excelente para construção de edifícios.';
+            break;
+        case 'B':
+            info = 'Local B: Ótimo para áreas de lazer.';
+            break;
+        case 'C':
+            info = 'Local C: Ideal para instalações industriais.';
+            break;
+        default:
+            info = 'Informações não disponíveis.';
+    }
+
+    // Criar a seção de informações
+    const infoSection = document.createElement('div');
+    infoSection.className = 'info-section';
+    infoSection.innerHTML = `
+        <h2>Informações sobre o Local ${location}</h2>
+        <p>${info}</p>
+        <h3>Escolas nas proximidades:</h3>
+        <ul>
+            ${schools.map(school => `<li>${school}</li>`).join('')}
+        </ul>
+        <h3>Hospitais nas proximidades:</h3>
+        <ul>
+            ${hospitals.map(hospital => `<li>${hospital}</li>`).join('')}
+        </ul>
+    `;
+
+    // Adicionar a seção de informações ao conteúdo
+    document.getElementById('content').appendChild(infoSection);
+}
+
+// Modifique a função getLocationDetails para chamar showLocationInfo
+function getLocationDetails(location) {
+    let details = '';
+    let lat, lng;
+
+    switch(location) {
+        case 'A':
+            details = 'Local A é uma área central com acesso fácil a transporte público.';
+            lat = 40.71778; // Coordenada fictícia para Local A
+            lng = -74.00597;
+            break;
+        case 'B':
+            details = 'Local B é um parque natural que oferece espaço para atividades ao ar livre.';
+            lat = 40.72078; // Coordenada fictícia para Local B
+            lng = -74.00197;
+            break;
+        case 'C':
+            details = 'Local C possui infraestrutura industrial adequada.';
+            lat = 40.71578; // Coordenada fictícia para Local C
+            lng = -73.99597;
+            break;
+        default:
+            details = 'Local não encontrado.';
+    }
+
+    alert(details);
+    showLocationInfo(location); // Chama a nova função para mostrar informações detalhadas
+
+
+
+    
+    // Atualiza o mapa para centralizar na localização selecionada
+    const mapFrame = document.getElementById('mapFrame');
+    mapFrame.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.002}%2C${lat-0.002}%2C${lng+0.002}%2C${lat+0.002}&layer=mapnik&marker=${lat}%2C${lng}`;
+
+
+
+
+    
+}
+
     </script>
 
        
-    </script>
+
 </head>
 <body>
     

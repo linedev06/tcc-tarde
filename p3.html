@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord-like Chat with Audio</title>
     <style>
-        body {
+                body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f4;
@@ -374,40 +374,38 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-top: 0;
-            margin-bottom: 230px;
+            margin-bottom: 190px;
             margin-left: 25px;
         }
 
         .features-toggle:hover {
             background-color: #ffa533;
         }
-
         .features-area {
-            position: fixed;
-            bottom: 350px;
-            left: 15px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 300px;
-            display: none; /* Inicialmente oculto */
-            z-index: 10;
-            border: solid 3px #FF9A00;
-        }
+    position: fixed;
+    bottom: 250px;
+    left: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 300px; /* Largura fixa para melhor visualização */
+    display: none; /* Inicialmente oculto */
+    z-index: 10;
+    border: solid 3px #FF9A00;
+}
 
-        .feature {
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            transition: border-color 0.3s ease;
-            
-        }
+.feature {
+    margin-bottom: 20px; /* Espaçamento entre as seções */
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
 
-        .feature:hover {
-            border-color: #FF9A00;
-        }
+.feature:hover {
+    border-color: #FF9A00;
+}
 
         .feature h4 {
             margin: 0;
@@ -431,12 +429,12 @@
         }
 
         .feedback-section {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e9f5e9;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e9f5e9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
         .feedback-section h4 {
             margin: 0;
@@ -465,13 +463,14 @@
             display: flex;
         }
 
-        .feedback-input input {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #ffa533;
-            border-radius: 4px;
-            width: 1px;
-        }
+   
+
+.feedback-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ffa533;
+    border-radius: 4px;
+}
 
         .feedback-input button {
             margin-left: 10px;
@@ -490,9 +489,9 @@
 
 
         .poll-section {
-            margin-top: 20px;
-            text-align: center;
-        }
+    margin-top: 10px; /* Espaçamento entre o feedback e a enquete */
+    text-align: center;
+}
 
         .poll-section p {
             font-weight: bold;
@@ -537,6 +536,19 @@
             margin-bottom: 0px;
             width: 210px;
         }
+
+        .image-container {
+    display: flex;
+    flex-wrap: wrap; /* Para permitir que as imagens se ajustem em várias linhas */
+    margin-top: 10px; /* Espaço acima das imagens */
+}
+
+.sent-image {
+    width: 100px; /* Largura fixa para as imagens */
+    height: auto; /* Altura automática para manter a proporção */
+    margin-right: 10px; /* Espaço entre as imagens */
+    border-radius: 5px; /* Bordas arredondadas */
+}
     </style>
 </head>
 <body>
@@ -555,6 +567,7 @@
                     <li data-channel="#Random">#Random</li>
                     <li data-channel="#Voice-chat">#Voice-chat</li>
                 </ul>
+                <div style="margin-top: 50px;"></div>
                 <hr>
                 <!-- Novas Funcionalidades -->
                 <button class="features-toggle" onclick="toggleFeatures()">Status e Feedback</button>
@@ -581,13 +594,18 @@
                             <button onclick="voteFeedback(true)">👍 Positivo</button>
                             <button onclick="voteFeedback(false)">👎 Negativo</button>
                             <p id="vote-result" class="poll-result"></p>
+                            <div class="image-container">
+                                <img src="img/PREDIO 1.jpg" alt="Imagem 1" class="sent-image">
+                                <img src="img/PREDIO 2.jpg" alt="Imagem 2" class="sent-image">
+                                <img src="img/PREDIO 3.jpg" alt="Imagem 3" class="sent-image">
+                            </div>
                         </div>
                     </div>
                 </div>
                 
             </div>
         </div>
-        <div style="margin-bottom: 90px;">
+        <div style="margin-bottom: 60px;">
             <hr class="custom-hr">
         </div>
         <button class="back-btn" onclick="location.href='lobbyperfil1.html'">Voltar</button>
