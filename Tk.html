@@ -78,7 +78,7 @@
 <body>
   
     <div class="gallery" >
-      <div style="color: #FF9A00; text-align: justify; margin-left: 330px; margin-top: 40px;"><h1>Conheça um pouco mais da equipe que
+      <div style="color: #FF9A00; text-align: justify; margin-left: 330px; margin-top: 40px;font-family: 'Merriweather', serif;"><h1>Conheça um pouco mais da equipe que
         <br>transforma o seus sonhos em realidade!</h1></div>
 
       <div class="swiper mySwiper">
@@ -137,6 +137,20 @@
   </button>
 </div>
 
+
+<center>
+
+  </div>
+  <div class="video-container">
+    <p class="video-title">Não se convenceu ainda de que a Tektõn pode lhe proporcionar o melhor? Então, assista a esse pequeno vídeo abaixo e descubra o porquê somos Tektõn.</p>
+    <video controls>
+      <source src="Vídeo da Tektôn.mp4" type="video/mp4">
+      Seu navegador não suporta o elemento de vídeo.
+    </video>
+  </div>
+</center>
+
+
 <style>
   .square:hover {
     transform: scale(1.1);
@@ -161,6 +175,31 @@
   button:focus {
     outline: none;
   }
+  .video-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 100px;
+      color: #FF9A00;
+      font-family: 'Merriweather', serif;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .video-title {
+      font-size: 36px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    video {
+      width: 800px;
+      height: 450px;
+      border: solid 3px #FF9A00;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      margin-bottom: 100px;
+    }
 </style>
 
         
@@ -171,18 +210,6 @@
 
    
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <script>

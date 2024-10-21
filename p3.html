@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord-like Chat with Audio</title>
     <style>
-                body {
+        body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f4;
@@ -25,10 +26,73 @@
             flex-direction: column;
             border-right: 1px solid #e0e0e0;
             position: relative;
+            cursor: ew-resize;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            /* Suaviza a transição */
+            transform: translateX(0);
+            /* Posição inicial */
+            width: 250px;
+            /* Largura padrão da sidebar */
+            opacity: 1;
+            /* Opacidade padrão */
+            overflow: hidden;
+        }
+
+
+
+
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+            /* Move a sidebar para fora da tela */
+            opacity: 0;
+            /* Faz a sidebar invisível ao ocultar */
+            pointer-events: none;
+            /* Desativa eventos enquanto está oculta */
+            margin-left: 0;/
+        }
+
+        .sidebar-toggle {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            display: none;
+            /* Inicialmente oculto */
+        }
+
+        .toggle-icon {
+            width: 40px;
+            /* Ajuste o tamanho conforme necessário */
+            height: auto;
+        }
+
+        /* Exibir o botão de alternância quando a sidebar estiver oculta */
+        .sidebar.hidden+.sidebar-toggle {
+            display: block;
+        }
+
+
+        .sidebar-reveal {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            display: none;
+            /* Inicialmente oculto */
+        }
+
+        .pull-icon {
+            width: 40px;
+            /* Ajuste o tamanho conforme necessário */
+            height: auto;
         }
 
         .logo {
-            width: 150px; /* Aumenta o tamanho da logo */
+            width: 150px;
+            /* Aumenta o tamanho da logo */
             margin: 15px;
             position: absolute;
             top: 0;
@@ -57,7 +121,8 @@
             transition: background-color 0.3s ease;
         }
 
-        .server-btn:hover, .server-btn.active {
+        .server-btn:hover,
+        .server-btn.active {
             background-color: #FF9A00;
             color: #fff;
         }
@@ -89,7 +154,8 @@
             transition: background-color 0.3s ease;
         }
 
-        .channel-list ul li:hover, .channel-list ul li.active {
+        .channel-list ul li:hover,
+        .channel-list ul li.active {
             background-color: #FF9A00;
             color: #fff;
         }
@@ -165,7 +231,8 @@
             border-color: #FF9A00;
         }
 
-        #send-btn, #voice-btn {
+        #send-btn,
+        #voice-btn {
             background-color: #FF9A00;
             border: none;
             color: #fff;
@@ -179,7 +246,8 @@
             justify-content: center;
         }
 
-        #send-btn:hover, #voice-btn:hover {
+        #send-btn:hover,
+        #voice-btn:hover {
             background-color: #ffa533;
         }
 
@@ -188,7 +256,7 @@
             font-size: 18px;
         }
 
-       
+
         .recording-indicator {
             position: absolute;
             left: 15px;
@@ -203,39 +271,39 @@
         }
 
         .audio-message {
-    background-color: #ffffff; 
-    border: 2px solid #f4f4f4; 
-    border-radius: 30px; 
-    padding: 10px; 
-    margin: 10px 0; 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    max-width: 350px; 
-}
+            background-color: #ffffff;
+            border: 2px solid #f4f4f4;
+            border-radius: 30px;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+        }
 
 
-.audio-message p {
-    margin: 0;
-    font-size: 14px; 
-    color: #FF9A00; 
-    font-weight: bold; 
-}
+        .audio-message p {
+            margin: 0;
+            font-size: 14px;
+            color: #FF9A00;
+            font-weight: bold;
+        }
 
 
-.audio-message em {
-    color: #555; 
-    font-style: italic;
-}
+        .audio-message em {
+            color: #555;
+            font-style: italic;
+        }
 
 
-.audio-message audio {
-    margin-top: 8px; 
-    width: 100%; 
-    border-radius: 100px; 
-    border: 1px solid #FF9A00; 
-}
+        .audio-message audio {
+            margin-top: 8px;
+            width: 100%;
+            border-radius: 100px;
+            border: 1px solid #FF9A00;
+        }
 
         /* Timer */
         .timer {
@@ -250,119 +318,122 @@
         .timer.active {
             display: block;
         }
+
         .ligacao-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #FF9A00;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 8px;
-}
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF9A00;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 8px;
+        }
 
-.ligacao-btn:hover {
-  background-color: #ffa533;
-}
+        .ligacao-btn:hover {
+            background-color: #ffa533;
+        }
 
-.ligacao-janela {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  display: none;
-}
+        .ligacao-janela {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
 
-.ligacao-janela {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  display: none;
-  text-align: center;
-}
+        .ligacao-janela {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            text-align: center;
+        }
 
-.ligacao-janela h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+        .ligacao-janela h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-.ligacao-janela p {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
+        .ligacao-janela p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
 
-.ligacao-circulo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: #FF9A00;
-  margin: 20px auto;
-  padding: 5px; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: piscar 1s infinite;
-  border: 2px solid #FF9A00; 
-}
+        .ligacao-circulo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #FF9A00;
+            margin: 20px auto;
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: piscar 1s infinite;
+            border: 2px solid #FF9A00;
+        }
 
-.ligacao-circulo img {
-  width: 180px; 
-  height: 100px; 
-  border-radius: 50%;
-  background-color: #fff;
-  padding: 5px;
-}
+        .ligacao-circulo img {
+            width: 180px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #fff;
+            padding: 5px;
+        }
 
-.ligacao-janela h2 {
-  margin-top: 0;
-}
+        .ligacao-janela h2 {
+            margin-top: 0;
+        }
 
-.ligacao-janela p {
-  margin-bottom: 10px;
-}
+        .ligacao-janela p {
+            margin-bottom: 10px;
+        }
 
-.fechar-ligacao-btn {
-  background-color: #FF9A00;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 8px;
-}
+        .fechar-ligacao-btn {
+            background-color: #FF9A00;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 8px;
+        }
 
-.fechar-ligacao-btn:hover {
-  background-color: #ffa533;
-}
+        .fechar-ligacao-btn:hover {
+            background-color: #ffa533;
+        }
 
-@keyframes piscar {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+        @keyframes piscar {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
 
 
-.features-toggle {
+        .features-toggle {
             position: absolute;
             bottom: 15px;
             left: 15px;
@@ -381,31 +452,35 @@
         .features-toggle:hover {
             background-color: #ffa533;
         }
+
         .features-area {
-    position: fixed;
-    bottom: 250px;
-    left: 15px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    width: 300px; /* Largura fixa para melhor visualização */
-    display: none; /* Inicialmente oculto */
-    z-index: 10;
-    border: solid 3px #FF9A00;
-}
+            position: fixed;
+            bottom: 250px;
+            left: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 300px;
+            /* Largura fixa para melhor visualização */
+            display: none;
+            /* Inicialmente oculto */
+            z-index: 10;
+            border: solid 3px #FF9A00;
+        }
 
-.feature {
-    margin-bottom: 20px; /* Espaçamento entre as seções */
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    transition: border-color 0.3s ease;
-}
+        .feature {
+            margin-bottom: 20px;
+            /* Espaçamento entre as seções */
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
 
-.feature:hover {
-    border-color: #FF9A00;
-}
+        .feature:hover {
+            border-color: #FF9A00;
+        }
 
         .feature h4 {
             margin: 0;
@@ -424,17 +499,18 @@
         .progress {
             height: 100%;
             background-color: #FF9A00;
-            width: 0; /* Start with 0% width */
+            width: 0;
+            /* Start with 0% width */
             transition: width 0.3s ease;
         }
 
         .feedback-section {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #e9f5e9;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e9f5e9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
         .feedback-section h4 {
             margin: 0;
@@ -447,7 +523,7 @@
         }
 
 
-       
+
         .feedback-section h4 {
             margin: 0;
             color: #333;
@@ -463,14 +539,14 @@
             display: flex;
         }
 
-   
 
-.feedback-input input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ffa533;
-    border-radius: 4px;
-}
+
+        .feedback-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ffa533;
+            border-radius: 4px;
+        }
 
         .feedback-input button {
             margin-left: 10px;
@@ -489,9 +565,10 @@
 
 
         .poll-section {
-    margin-top: 10px; /* Espaçamento entre o feedback e a enquete */
-    text-align: center;
-}
+            margin-top: 10px;
+            /* Espaçamento entre o feedback e a enquete */
+            text-align: center;
+        }
 
         .poll-section p {
             font-weight: bold;
@@ -528,7 +605,7 @@
             margin-left: 40px;
         }
 
-        /* Estilo para o <hr> */
+
         .custom-hr {
             border: none;
             height: 1px;
@@ -538,82 +615,89 @@
         }
 
         .image-container {
-    display: flex;
-    flex-wrap: wrap; /* Para permitir que as imagens se ajustem em várias linhas */
-    margin-top: 10px; /* Espaço acima das imagens */
-}
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
 
-.sent-image {
-    width: 100px; /* Largura fixa para as imagens */
-    height: auto; /* Altura automática para manter a proporção */
-    margin-right: 10px; /* Espaço entre as imagens */
-    border-radius: 5px; /* Bordas arredondadas */
-}
+        .sent-image {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
 
-.modal {
-    display: none; /* Oculto por padrão */
-    position: fixed; /* Fica no topo da tela */
-    z-index: 1000; /* Fica acima de outros elementos */
-    left: 0;
-    top: 0;
-    width: 100%; /* Largura total */
-    height: 100%; /* Altura total */
-    overflow: auto; /* Permite rolagem se necessário */
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro com opacidade */
-    
-}
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
 
-.modal-content {
-    margin: auto;
-    display: block;
-    width: 80%; /* Largura da imagem */
-    max-width: 700px; /* Largura máxima */
-    margin-top: 120px;
-}
+        }
 
-.close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            margin-top: 120px;
+        }
 
-.caption {
-    margin: auto;
-    display: block;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-}
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.7);
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 18px;
-}
+        .caption {
+            margin: auto;
+            display: block;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+        }
 
-#prev-btn {
-    left: 10px; /* Posição do botão anterior */
-    margin-left: 450px;
-}
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
 
-#next-btn {
-    right: 10px; /* Posição do botão seguinte */
-    margin-right: 450px;
-}
+        #prev-btn {
+            left: 10px;
+            margin-left: 450px;
+        }
+
+        #next-btn {
+            right: 10px;
+            margin-right: 450px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <aside class="sidebar">
+            <div class="sidebar-toggle" id="sidebarToggle">
+                <img src="img/architecture-1477103_1920.jpg" alt="Toggle Sidebar" class="toggle-icon">
+            </div>
+            <div class="sidebar-reveal" id="sidebarReveal" style="display: none;">
+                <img src="img/architecture-1477103_1920.jpg" alt="Pull to Reveal Sidebar" class="pull-icon">
+            </div>
             <a href="index.html"><img src="img/latsflaubranco-removebg-preview.png" alt="Logo" class="logo"></a>
             <div class="server-list">
                 <button class="server-btn active" data-server="server1">Arquiteto 1</button>
@@ -649,69 +733,73 @@
                                 <input type="text" id="feedback-input" placeholder="Escreva seu feedback...">
                                 <button id="submit-feedback">Enviar</button>
                             </div>
-                           <div class="poll-section">
-                            <p><strong>Enquete:</strong> O que você achou?</p>
-                            <button onclick="voteFeedback(true)">👍 Positivo</button>
-                            <button onclick="voteFeedback(false)">👎 Negativo</button>
-                            <p id="vote-result" class="poll-result"></p>
-                            <div class="image-container">
-                                <img src="img/PREDIO 1.jpg" alt="Imagem 1" class="sent-image">
-                                <img src="img/PREDIO 2.jpg" alt="Imagem 2" class="sent-image">
-                                <img src="img/PREDIO 3.jpg" alt="Imagem 3" class="sent-image">
-                            </div>
-                            <div id="image-modal" class="modal">
-                                <span class="close" id="close-modal">&times;</span>
-                                <img class="modal-content" id="modal-image" alt="Imagem Ampliada">
-                                <div class="caption" id="caption"></div>
-                                <button id="prev-btn" class="nav-btn">❮</button>
-                                <button id="next-btn" class="nav-btn">❯</button>
+                            <div class="poll-section">
+                                <p><strong>Enquete:</strong> O que você achou?</p>
+                                <button onclick="voteFeedback(true)">👍 Positivo</button>
+                                <button onclick="voteFeedback(false)">👎 Negativo</button>
+                                <p id="vote-result" class="poll-result"></p>
+                                <div class="image-container">
+                                    <img src="img/PREDIO 1.jpg" alt="Imagem 1" class="sent-image">
+                                    <img src="img/PREDIO 2.jpg" alt="Imagem 2" class="sent-image">
+                                    <img src="img/PREDIO 3.jpg" alt="Imagem 3" class="sent-image">
+                                </div>
+                                <div id="image-modal" class="modal">
+                                    <span class="close" id="close-modal">&times;</span>
+                                    <img class="modal-content" id="modal-image" alt="Imagem Ampliada">
+                                    <div class="caption" id="caption"></div>
+                                    <button id="prev-btn" class="nav-btn">❮</button>
+                                    <button id="next-btn" class="nav-btn">❯</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-                
             </div>
-        </div>
-        <div style="margin-bottom: 60px;">
-            <hr class="custom-hr">
-        </div>
-        <button class="back-btn" onclick="location.href='lobbyperfil1.html'">Voltar</button>
-  
-  
+            <div style="margin-bottom: 60px;">
+                <hr class="custom-hr">
+            </div>
+            <button class="back-btn" onclick="location.href='lobbyperfil1.html'">Voltar</button>
+
+
         </aside>
-               
-                
-                
-        
+
+
+
+
         <main class="chat-area">
             <div class="chat-header">
                 <h2 id="current-channel">#Geral</h2>
                 <button id="ligacao-btn" class="ligacao-btn">Ligação</button>
             </div>
-            
+
             <div class="ligacao-janela" id="ligacao-janela">
                 <h2>Ligando para o arquiteto...</h2>
                 <div class="ligacao-circulo">
-                  <img src="img/arquiteto.png" alt="Arquiteto">
+                    <img src="img/arquiteto.png" alt="Arquiteto">
                 </div>
                 <p>Aguarde um momento...</p>
                 <button class="fechar-ligacao-btn" id="fechar-ligacao-btn">Fechar</button>
-              
-              </div>
+
+            </div>
 
 
-              
-              <div class="chat-content" id="chat-content-server1">
+
+            <div class="chat-content" id="chat-content-server1">
                 <div class="message">
                     <p><strong>Bot:</strong></p>
 
                     <p>Olá!</p>
-                    
-                    <p>Agradecemos profundamente por escolher a Tektõn para suas necessidades arquitetônicas. Este é um serviço exclusivo onde você tem a oportunidade de falar diretamente com o seu arquiteto pessoal.</p>
-                    
-                    <p>Se tiver qualquer dúvida ou precisar de assistência, nossa equipe está pronta para proporcionar a você um atendimento excepcional e personalizado.</p>
-                    
-                    <p>Estamos aqui para garantir que cada detalhe do seu projeto seja executado com a máxima precisão e qualidade. Sua satisfação é nossa prioridade.</p>
+
+                    <p>Agradecemos profundamente por escolher a Tektõn para suas necessidades arquitetônicas. Este é um
+                        serviço exclusivo onde você tem a oportunidade de falar diretamente com o seu arquiteto pessoal.
+                    </p>
+
+                    <p>Se tiver qualquer dúvida ou precisar de assistência, nossa equipe está pronta para proporcionar a
+                        você um atendimento excepcional e personalizado.</p>
+
+                    <p>Estamos aqui para garantir que cada detalhe do seu projeto seja executado com a máxima precisão e
+                        qualidade. Sua satisfação é nossa prioridade.</p>
                 </div>
                 <div class="message">
                     <p><strong>User1:</strong> Hello World in Server 1!</p>
@@ -722,12 +810,16 @@
                     <p><strong>Bot:</strong></p>
 
                     <p>Olá!</p>
-                    
-                    <p>Agradecemos profundamente por escolher a Tektõn para suas necessidades arquitetônicas. Este é um serviço exclusivo onde você tem a oportunidade de falar diretamente com o seu arquiteto pessoal.</p>
-                    
-                    <p>Se tiver qualquer dúvida ou precisar de assistência, nossa equipe está pronta para proporcionar a você um atendimento excepcional e personalizado.</p>
-                    
-                    <p>Estamos aqui para garantir que cada detalhe do seu projeto seja executado com a máxima precisão e qualidade. Sua satisfação é nossa prioridade.</p>
+
+                    <p>Agradecemos profundamente por escolher a Tektõn para suas necessidades arquitetônicas. Este é um
+                        serviço exclusivo onde você tem a oportunidade de falar diretamente com o seu arquiteto pessoal.
+                    </p>
+
+                    <p>Se tiver qualquer dúvida ou precisar de assistência, nossa equipe está pronta para proporcionar a
+                        você um atendimento excepcional e personalizado.</p>
+
+                    <p>Estamos aqui para garantir que cada detalhe do seu projeto seja executado com a máxima precisão e
+                        qualidade. Sua satisfação é nossa prioridade.</p>
 
                 </div>
                 <div class="message">
@@ -739,13 +831,17 @@
                     <p><strong>Bot:</strong></p>
 
                     <p>Olá!</p>
-                    
-                    <p>Agradecemos profundamente por escolher a Tektõn para suas necessidades arquitetônicas. Este é um serviço exclusivo onde você tem a oportunidade de falar diretamente com o seu arquiteto pessoal.</p>
-                    
-                    <p>Se tiver qualquer dúvida ou precisar de assistência, nossa equipe está pronta para proporcionar a você um atendimento excepcional e personalizado.</p>
-                    
-                    <p>Estamos aqui para garantir que cada detalhe do seu projeto seja executado com a máxima precisão e qualidade. Sua satisfação é nossa prioridade.</p>
-        
+
+                    <p>Agradecemos profundamente por escolher a Tektõn para suas necessidades arquitetônicas. Este é um
+                        serviço exclusivo onde você tem a oportunidade de falar diretamente com o seu arquiteto pessoal.
+                    </p>
+
+                    <p>Se tiver qualquer dúvida ou precisar de assistência, nossa equipe está pronta para proporcionar a
+                        você um atendimento excepcional e personalizado.</p>
+
+                    <p>Estamos aqui para garantir que cada detalhe do seu projeto seja executado com a máxima precisão e
+                        qualidade. Sua satisfação é nossa prioridade.</p>
+
                 </div>
                 <div class="message">
                     <p><strong>User3:</strong> Hello World in Server 3!</p>
@@ -758,24 +854,88 @@
                     </audio>
                 </div>
             </div>
-           
+
             <div class="chat-input-area">
                 <span class="recording-indicator" id="recording-indicator">Gravando...</span>
                 <input type="text" id="chat-input" placeholder="Escreva sua mensagem...">
                 <button id="send-btn">Enviar</button>
                 <button id="voice-btn">🎤</button>
                 <span class="timer" id="timer">00:00</span>
-                
+
             </div>
-           
+
         </main>
 
- 
+
 
     </div>
 
     <script>
-          document.addEventListener('DOMContentLoaded', function() {
+        let isDragging = false;
+        let startX;
+        let startWidth;
+
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarReveal = document.getElementById('sidebarReveal');
+
+        // Função para alternar a visibilidade da sidebar
+        function toggleSidebar() {
+            sidebar.classList.toggle('hidden');
+            sidebarReveal.style.display = sidebar.classList.contains('hidden') ? 'block' : 'none'; // Mostra ou oculta a imagem de puxar
+        }
+
+        // Evento para alternar a sidebar ao clicar no botão
+        sidebarToggle.addEventListener('click', toggleSidebar);
+
+        // Eventos para arrastar a sidebar
+        sidebar.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startWidth = parseInt(window.getComputedStyle(sidebar).width);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const dx = e.clientX - startX;
+            const newWidth = startWidth + dx; // Inverter a direção do arrasto
+
+            // Limite de largura
+            if (newWidth > 0 && newWidth < 250) { // Ajuste o limite de largura conforme necessário
+                sidebar.style.width = `${newWidth}px`;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            const currentWidth = parseInt(window.getComputedStyle(sidebar).width);
+
+            if (currentWidth <= 0) {
+                sidebar.classList.add('hidden'); // Oculta a sidebar se a largura for menor ou igual a 0
+                sidebarReveal.style.display = 'block'; // Mostra a imagem de puxar
+            } else {
+                sidebar.classList.remove('hidden'); // Mostra a sidebar se a largura for maior que 0
+                sidebarReveal.style.display = 'none'; // Oculta a imagem de puxar
+            }
+        });
+
+        // Evento para puxar a sidebar de volta ao clicar na imagem
+        sidebarReveal.addEventListener('click', () => {
+            sidebar.classList.remove('hidden'); // Mostra a sidebar
+            sidebarReveal.style.display = 'none'; // Oculta a imagem de puxar
+        });
+
+
+
+
+
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
             const chatInput = document.getElementById('chat-input');
             const sendBtn = document.getElementById('send-btn');
             const voiceBtn = document.getElementById('voice-btn');
@@ -791,29 +951,29 @@
                     messageElement.classList.add('message');
                     messageElement.innerHTML = `<p><strong>You:</strong> ${messageText}</p>`;
                     activeChatContent.appendChild(messageElement);
-                    chatInput.value = ""; // Clear the input field
+                    chatInput.value = "";
                     activeChatContent.scrollTop = activeChatContent.scrollHeight; // Scroll to the bottom
                 }
             }
 
-            chatInput.addEventListener('keydown', function(e) {
+            chatInput.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     sendMessage(chatInput.value);
                 }
             });
 
-            sendBtn.addEventListener('click', function() {
+            sendBtn.addEventListener('click', function () {
                 sendMessage(chatInput.value);
             });
 
-          
+
             let mediaRecorder;
             let audioChunks = [];
 
-            voiceBtn.addEventListener('click', function() {
+            voiceBtn.addEventListener('click', function () {
                 if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    alert("Your browser does not support audio recording.");
+                    alert("Seu navegador não possui suporte de audio.");
                     return;
                 }
 
@@ -826,25 +986,25 @@
                     timer.textContent = "00:00";
                 } else {
                     navigator.mediaDevices.getUserMedia({ audio: true })
-                        .then(function(stream) {
+                        .then(function (stream) {
                             mediaRecorder = new MediaRecorder(stream);
                             mediaRecorder.start();
 
                             recordingIndicator.classList.add('active');
                             timer.classList.add('active');
 
-                            recordingInterval = setInterval(function() {
+                            recordingInterval = setInterval(function () {
                                 seconds++;
                                 const minutes = Math.floor(seconds / 60);
                                 const secs = seconds % 60;
                                 timer.textContent = `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
                             }, 1000);
 
-                            mediaRecorder.ondataavailable = function(event) {
+                            mediaRecorder.ondataavailable = function (event) {
                                 audioChunks.push(event.data);
                             };
 
-                            mediaRecorder.onstop = function() {
+                            mediaRecorder.onstop = function () {
                                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                                 const audioUrl = URL.createObjectURL(audioBlob);
                                 const audioMessageElement = document.createElement('div');
@@ -857,11 +1017,11 @@
                                     </audio>
                                 `;
                                 activeChatContent.appendChild(audioMessageElement);
-                                activeChatContent.scrollTop = activeChatContent.scrollHeight; 
+                                activeChatContent.scrollTop = activeChatContent.scrollHeight;
                                 audioChunks = [];
                             };
                         })
-                        .catch(function(err) {
+                        .catch(function (err) {
                             console.error("Error accessing microphone: ", err);
                         });
                 }
@@ -870,7 +1030,7 @@
             // Handle server buttons
             const serverButtons = document.querySelectorAll('.server-btn');
             serverButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     serverButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
                     const serverId = button.getAttribute('data-server');
@@ -883,7 +1043,7 @@
             // Handle channel clicks
             const channelItems = document.querySelectorAll('.channel-list li');
             channelItems.forEach(item => {
-                item.addEventListener('click', function() {
+                item.addEventListener('click', function () {
                     channelItems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
                     const activeChannel = item.getAttribute('data-channel');
@@ -897,12 +1057,12 @@
             const fecharLigacaoBtn = document.getElementById('fechar-ligacao-btn');
             const circuloEsquerda = document.getElementById('circulo-esquerda');
 
-            ligacaoBtn.addEventListener('click', function() {
+            ligacaoBtn.addEventListener('click', function () {
                 ligacaoJanela.style.display = 'block';
                 circuloEsquerda.style.animationPlayState = 'running'; // Start animation
             });
 
-            fecharLigacaoBtn.addEventListener('click', function() {
+            fecharLigacaoBtn.addEventListener('click', function () {
                 ligacaoJanela.style.display = 'none';
                 circuloEsquerda.style.animationPlayState = 'paused'; // Pause animation
             });
@@ -923,7 +1083,7 @@
             }
         });
 
-         function toggleFeatures() {
+        function toggleFeatures() {
             const featuresArea = document.getElementById('featuresArea');
             if (featuresArea.style.display === 'none' || featuresArea.style.display === '') {
                 featuresArea.style.display = 'block';
@@ -932,7 +1092,7 @@
             }
         }
 
-        document.getElementById('submit-feedback').onclick = function() {
+        document.getElementById('submit-feedback').onclick = function () {
             const feedbackInput = document.getElementById('feedback-input');
             const recentFeedback = document.getElementById('recent-feedback');
             recentFeedback.textContent = feedbackInput.value || "Feedback vazio. Por favor, escreva algo.";
@@ -950,54 +1110,55 @@
             }
             document.getElementById('vote-result').textContent = `👍 ${positiveVotes} | 👎 ${negativeVotes}`;
         }
-        document.addEventListener('DOMContentLoaded', function() {
-    const images = document.querySelectorAll('.sent-image');
-    const modal = document.getElementById('image-modal');
-    const modalImg = document.getElementById('modal-image');
-    const captionText = document.getElementById('caption');
-    const closeModal = document.getElementById('close-modal');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
+        document.addEventListener('DOMContentLoaded', function () {
+            const images = document.querySelectorAll('.sent-image');
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            const captionText = document.getElementById('caption');
+            const closeModal = document.getElementById('close-modal');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
 
-    let currentIndex = 0;
+            let currentIndex = 0;
 
-    // Função para abrir o modal
-    images.forEach((img, index) => {
-        img.addEventListener('click', function() {
-            currentIndex = index;
-            openModal(img.src, img.alt);
+            // Função para abrir o modal
+            images.forEach((img, index) => {
+                img.addEventListener('click', function () {
+                    currentIndex = index;
+                    openModal(img.src, img.alt);
+                });
+            });
+
+            // Função para abrir o modal
+            function openModal(src, alt) {
+                modal.style.display = 'block';
+                modalImg.src = src;
+                captionText.innerHTML = alt;
+            }
+
+            // Fechar o modal
+            closeModal.onclick = function () {
+                modal.style.display = 'none';
+            }
+
+            // Navegação entre imagens
+            prevBtn.onclick = function () {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+                updateModalImage();
+            }
+
+            nextBtn.onclick = function () {
+                currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+                updateModalImage();
+            }
+
+            function updateModalImage() {
+                const img = images[currentIndex];
+                modalImg.src = img.src;
+                captionText.innerHTML = img.alt; // Corrected the variable name
+            }
         });
-    });
-
-    // Função para abrir o modal
-    function openModal(src, alt) {
-        modal.style.display = 'block';
-        modalImg.src = src;
-        captionText.innerHTML = alt;
-    }
-
-    // Fechar o modal
-    closeModal.onclick = function() {
-        modal.style.display = 'none';
-    }
-
-    // Navegação entre imagens
-    prevBtn.onclick = function() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateModalImage();
-    }
-
-    nextBtn.onclick = function() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateModalImage();
-    }
-
-    function updateModalImage() {
-    const img = images[currentIndex];
-    modalImg.src = img.src;
-    captionText.innerHTML = img.alt; // Corrected the variable name
-}
-});
     </script>
 </body>
+
 </html>
