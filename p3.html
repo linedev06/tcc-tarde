@@ -28,29 +28,17 @@
             position: relative;
             cursor: ew-resize;
             transition: transform 0.3s ease, opacity 0.3s ease;
-            /* Suaviza a transição */
-            transform: translateX(0);
-            /* Posição inicial */
-            width: 250px;
-            /* Largura padrão da sidebar */
             opacity: 1;
-            /* Opacidade padrão */
             overflow: hidden;
+            z-index: 10;
         }
-
-
-
-
 
         .sidebar.hidden {
             transform: translateX(-100%);
-            /* Move a sidebar para fora da tela */
             opacity: 0;
-            /* Faz a sidebar invisível ao ocultar */
             pointer-events: none;
-            /* Desativa eventos enquanto está oculta */
-            margin-left: 0;/
         }
+
 
         .sidebar-toggle {
             position: absolute;
@@ -59,20 +47,17 @@
             transform: translateY(-50%);
             cursor: pointer;
             display: none;
-            /* Inicialmente oculto */
         }
 
         .toggle-icon {
             width: 40px;
-            /* Ajuste o tamanho conforme necessário */
             height: auto;
         }
 
-        /* Exibir o botão de alternância quando a sidebar estiver oculta */
+     
         .sidebar.hidden+.sidebar-toggle {
             display: block;
         }
-
 
         .sidebar-reveal {
             position: absolute;
@@ -81,18 +66,16 @@
             transform: translateY(-50%);
             cursor: pointer;
             display: none;
-            /* Inicialmente oculto */
+            z-index: 15;
         }
 
         .pull-icon {
             width: 40px;
-            /* Ajuste o tamanho conforme necessário */
             height: auto;
         }
 
         .logo {
             width: 150px;
-            /* Aumenta o tamanho da logo */
             margin: 15px;
             position: absolute;
             top: 0;
@@ -305,7 +288,6 @@
             border: 1px solid #FF9A00;
         }
 
-        /* Timer */
         .timer {
             position: absolute;
             right: 15px;
@@ -462,16 +444,13 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 15px;
             width: 300px;
-            /* Largura fixa para melhor visualização */
+            z-index: 20;
             display: none;
-            /* Inicialmente oculto */
-            z-index: 10;
-            border: solid 3px #FF9A00;
+            
         }
 
         .feature {
             margin-bottom: 20px;
-            /* Espaçamento entre as seções */
             padding: 10px;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
@@ -686,6 +665,203 @@
             right: 10px;
             margin-right: 450px;
         }
+
+        .call-window {
+    color: black;
+    background-color: #f0f0f0; /* Cor de fundo suave */
+    padding: 30px;
+    border: solid 3px #ff9a00; /* Borda contrastante */
+    border-radius: 10px;
+    text-align: center;
+    width: 50vw;
+    height: 70vh; /* Aumenta a altura para acomodar a tela compartilhada */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Inicialmente escondida */
+    z-index: 100;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
+    transition: transform 0.3s ease;
+    overflow: hidden; /* Esconde qualquer conteúdo que exceda os limites */
+}
+
+.screen-container {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Altura fixa para o vídeo */
+    border: 2px solid #ff9a00; /* Borda de destaque */
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0; /* Espaço entre o vídeo e os controles */
+    display: none; /* Inicialmente escondida */
+}
+
+.avatars {
+    display: flex;
+    justify-content: center; /* Centraliza os avatares */
+    align-items: center; /* Alinhamento vertical */
+    gap: 30px; /* Aumenta o espaço entre os avatares */
+    margin-bottom: 20px;
+    margin-top: 20vh; /* Começa no centro da tela */
+    transition: margin-top 0.5s ease; /* Transição suave ao mover os avatares */
+}
+
+.avatar {
+    width: 120px; 
+    height: 120px;
+    background-color: #484b52; 
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;  /* Animação de zoom ao passar o mouse */
+}
+
+.screen-container {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Altura fixa para o vídeo */
+    border: 2px solid #ff9a00; /* Borda de destaque */
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0; /* Espaço entre o vídeo e os controles */
+    display: none; /* Inicialmente escondida */
+}
+
+#shared-screen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantém a proporção da imagem */
+    border-radius: 10px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    opacity: 0; /* Inicialmente invisível */
+    transition: opacity 0.3s ease; /* Animação suave */
+}
+
+.controls button {
+    background-color: #ff9a00;
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.controls button:hover {
+    background-color: #ff9a00;
+    transform: translateY(-2px);
+}
+
+.desligo {
+    background-color: #f04747;
+}
+
+.desligo:hover {
+    background-color: #d33939;
+}
+
+.call-window h2 {
+    margin: 0 0 10px;
+    color: #000000; /* Texto branco para contraste */
+    font-size: 24px; /* Aumenta o tamanho da fonte do título */
+}
+
+.call-window p {
+    margin: 0 0 20px;
+    color: #000000; /* Cor de texto mais suave */
+    font-size: 16px; /* Aumenta o tamanho da fonte do texto */
+}
+
+
+.avatar:hover {
+    transform: scale(1.1); /* Aumenta o tamanho do avatar ao passar o mouse */
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Para manter a proporção da imagem */
+    border-radius: 50%;
+}
+
+.avatar.talking::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 130px; /* Aumenta o tamanho do círculo de fala */
+    height: 130px; /* Aumenta o tamanho do círculo de fala */
+    border: 2px solid #ff9a00; /* Cor de destaque para indicar que está falando */
+    border-radius: 50%;
+}
+
+.controls {
+    display: flex; /* Usa flexbox para alinhar os botões horizontalmente */
+    justify-content: center; /* Centraliza os botões */
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 20px; /* Adiciona espaço acima dos botões */
+}
+
+.controls button {
+    background-color: #ff9a00; /* Cor de fundo mais suave para os botões */
+    color: white;
+    border: none;
+    width: 50px; /* Largura do botão circular */
+    height: 50px; /* Altura do botão circular */
+    border-radius: 50%; /* Torna o botão circular */
+    cursor: pointer;
+    font-size: 16px; /* Tamanho da fonte para ícones ou texto */
+    transition: background-color 0.3s, transform 0.2s; /* Transições suaves */
+}
+
+.controls button:hover {
+    background-color: #ff9a00; /* Cor mais clara ao passar o mouse */
+    transform: translateY(-2px); /* Eleva o botão levemente */
+}
+
+.desligo {
+    background-color: #f04747; /* Vermelho para botão de encerrar */
+}
+
+.desligo:hover {
+    background-color: #d33939; /* Cor mais escura ao passar o mouse */
+}
+
+
+
+.avatar.talking {
+    position: relative;
+}
+
+.avatar.talking::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 130px;
+    height: 130px;
+    border: 3px solid gold; 
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 10px gold;
+}
+
     </style>
 </head>
 
@@ -764,9 +940,6 @@
 
         </aside>
 
-
-
-
         <main class="chat-area">
             <div class="chat-header">
                 <h2 id="current-channel">#Geral</h2>
@@ -781,9 +954,29 @@
                 <p>Aguarde um momento...</p>
                 <button class="fechar-ligacao-btn" id="fechar-ligacao-btn">Fechar</button>
 
+                <div class="call-window" id="call-window">
+                    <h2>Chamada com Arquiteto 1</h2>
+                    <p>Ligação em andamento...</p>
+                    <div class="avatars">
+                        <div class="avatar" data-user="user1">
+                            <img src="img/arquiteto.png" alt="User 1">
+                        </div>
+                        <div class="avatar" data-user="user2">
+                            <img src="img/download.png" alt="User 2">
+                        </div>
+                    </div>
+                    <div class="screen-container">
+                        <video id="shared-screen" autoplay></video>
+                    </div>
+                    <div class="controls">
+                        <button id="toggle-audio-btn">🔊</button>
+                        <button id="toggle-video-btn">📷</button>
+                        <button id="share-screen-btn" onclick="toggleScreenShare()">📲</button>
+                        <button class="end-call-btn desligo" id="end-call-btn">📞</button>
+                    </div>
+                </div>
+            
             </div>
-
-
 
             <div class="chat-content" id="chat-content-server1">
                 <div class="message">
@@ -864,13 +1057,163 @@
 
             </div>
 
-        </main>
-
-
-
-    </div>
 
     <script>
+// Simulação da função de detecção de voz
+function isUserTalking() {
+    // Aqui você implementaria a lógica real para detectar a voz do usuário
+    return Math.random() > 0.5; // Simulação: retorna true ou false aleatoriamente
+}
+
+function toggleMicrophone(userId) {
+    const avatar = document.querySelector(`.avatar[data-user="${userId}"]`);
+    if (!avatar) return;
+
+    // Alternar estado do microfone
+    const isMicrophoneOn = avatar.classList.toggle('microphone-on');
+
+    if (isMicrophoneOn) {
+        const intervalId = setInterval(() => {
+            if (isUserTalking()) {
+                avatar.classList.add('talking');
+            } else {
+                avatar.classList.remove('talking');
+            }
+        }, 1000);
+
+        // Salvar o intervalId no elemento para poder limpar depois
+        avatar.dataset.intervalId = intervalId;
+    } else {
+        // Desligar o microfone
+        avatar.classList.remove('talking');
+        clearInterval(avatar.dataset.intervalId);
+    }
+}
+
+// Adicionar event listeners aos avatares para alternar o microfone
+document.querySelectorAll('.avatar').forEach(avatar => {
+    avatar.addEventListener('click', () => {
+        const userId = avatar.getAttribute('data-user');
+        toggleMicrophone(userId);
+    });
+});
+
+
+
+
+
+
+
+
+        
+        let isScreenSharing = false; // Variável para rastrear o estado do compartilhamento de tela
+let currentStream; // Armazena o stream atual
+
+function toggleScreenShare() {
+    if (isScreenSharing) {
+        stopScreenShare(); // Se já está compartilhando, parar
+    } else {
+        startScreenShare(); // Se não está, iniciar o compartilhamento
+    }
+}
+
+function startScreenShare() {
+    navigator.mediaDevices.getDisplayMedia({ video: true })
+        .then((stream) => {
+            const videoElement = document.getElementById('shared-screen');
+            videoElement.srcObject = stream;
+            currentStream = stream; // Armazena o stream atual
+
+            // Exibir a janela de chamada e a tela compartilhada
+            document.querySelector('.call-window').style.display = 'block';
+            document.querySelector('.screen-container').style.display = 'block';
+
+            // Move os avatares para cima
+            document.querySelector('.avatars').style.marginTop = '10vh';
+
+            isScreenSharing = true; // Atualiza o estado
+
+            // Adicionar um evento para parar o compartilhamento de tela quando o usuário o encerrar
+            stream.getTracks().forEach(track => {
+                track.addEventListener('ended', stopScreenShare);
+            });
+        })
+        .catch((error) => {
+            console.error('Erro ao compartilhar a tela: ', error);
+        });
+}
+
+function stopScreenShare() {
+    if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+        currentStream = null; // Limpa o stream atual
+    }
+
+    const videoElement = document.getElementById('shared-screen');
+    videoElement.srcObject = null; // Para o vídeo
+
+    // Esconder a tela compartilhada
+    document.querySelector('.screen-container').style.display = 'none';
+
+    // Restaura a posição dos avatares
+    document.querySelector('.avatars').style.marginTop = '20vh';
+
+    isScreenSharing = false; // Atualiza o estado
+}
+
+
+
+             const audioBtn = document.getElementById('toggle-audio-btn');
+        const videoBtn = document.getElementById('toggle-video-btn');
+        const screenBtn = document.getElementById('share-screen-btn');
+        const endCallBtn = document.getElementById('end-call-btn');
+        let audioEnabled = false;
+        let videoEnabled = false;
+
+        audioBtn.addEventListener('click', () => {
+            audioEnabled = !audioEnabled;
+            audioBtn.textContent = audioEnabled ? '🔇 ' : '🔊 ';
+        });
+
+        videoBtn.addEventListener('click', () => {
+            videoEnabled = !videoEnabled;
+            videoBtn.textContent = videoEnabled ? '📵 ' : '📷 ';
+        });
+
+        screenBtn.addEventListener('click', () => {
+            alert('Compartilhamento de tela ativado!');
+        });
+
+        endCallBtn.addEventListener('click', () => {
+            alert('Chamada encerrada');
+        });
+
+
+
+
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+    const ligacaoBtn = document.getElementById('ligacao-btn');
+    const callWindow = document.getElementById('call-window');
+    const endCallBtn = document.getElementById('end-call-btn');
+
+    ligacaoBtn.addEventListener('click', function () {
+        // Exibir janela de ligação
+        alert("Ligando... Aguarde 10 segundos.");
+        setTimeout(() => {
+            callWindow.style.display = 'block'; // Mostra a janela de chamada
+        }, 1000); // Espera 10 segundos
+    });
+
+    endCallBtn.addEventListener('click', function () {
+        callWindow.style.display = 'none'; // Esconde a janela de chamada
+    });
+});
+
         let isDragging = false;
         let startX;
         let startWidth;
