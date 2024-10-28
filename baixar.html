@@ -103,22 +103,33 @@
                 <div id="demo-button-container">
                     <button id="demo-button" style="display: none;">Experimente agora</button>
                 </div>
-                <div class="iframe-container" id="iframe-container" style="display: none;">
-                    <iframe src="appsite.html" title="App Site"></iframe>
+                <div class="iframe-container">
+                    <iframe id="app-iframe" src="appsite.html" title="App Site"></iframe>
+                    <div class="home-button" id="home-button" onmousedown="startHold()" onmouseup="endHold()" onmouseleave="endHold()"></div>
+                    <!-- Tela de desligamento -->
+                    <div id="shutdown-screen" class="shutdown-screen" style="display: none;">
+                        <h2>Desligando...</h2>
+                    </div>
+                    <!-- Tela de blackout -->
+                    <div id="blackout-screen" class="blackout" style="display: none;"></div>
+                    <div id="turning-on-message" style="display: none; color: white; font-size: 24px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102;">
+                        Ligando...
+                    </div>
                 </div>
             </div>
         </section>
     </div>
     
     
+
+    
+    
+    
+    
 </body>
 </html>
 
 <style>
-
-
-
-
 
 * {
     margin: 0;
@@ -493,104 +504,265 @@ section {
     .about-text h2 { animation-delay: 0.2s; }
     .proposals-content h2 { animation-delay: 0.4s; }
 
-
     .video-section {
-    display: flex; /* Usar flexbox para alinhar o vídeo e o demo lado a lado */
-    background-color: #f9f9f9; /* Fundo mais suave */
-    padding: 30px; /* Padding reduzido para compactar a seção */
-    border-radius: 12px; /* Bordas arredondadas */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave ao redor da seção */
-    gap: 20px; /* Espaçamento uniforme entre os itens */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f5f7;
+    padding: 80px 20px;
+    width: 100%;
+    color: #1c1c1e;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    gap: 40px;
 }
+
 
 .video-section h2 {
-    font-size: 28px; /* Tamanho do título ajustado */
-    color: #222;
-    font-weight: 600;
-    margin-bottom: 10px; /* Margem abaixo do título */
-    line-height: 1.4; /* Ajuste no espaçamento entre linhas */
+    font-size: 32px; 
+    font-weight: 600; 
+    margin: 0;
+    text-align: center;
+    color: #333;
+    text-transform: uppercase; 
 }
 
+
 .video-container {
-    flex: 1; /* Permite que o vídeo ocupe espaço flexível */
-    max-width: 800px;
-    margin-right: 15px; /* Reduz espaço à direita para se aproximar do iframe */
-    border-radius: 12px;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 18px;
     overflow: hidden;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .video-container:hover {
-    transform: scale(1.03); /* Aumenta ligeiramente o efeito de zoom */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra mais intensa no hover */
+    transform: scale(1.02); 
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
 }
 
 .video-container video {
     width: 100%;
-    border-radius: 12px;
+    border-radius: 18px;
 }
+
 
 #demo {
-    flex: 0 0 35%; /* Largura do demo ajustada para manter o layout */
-    text-align: center; /* Centraliza o conteúdo dentro do demo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
 }
 
-.demo-container {
-    position: relative; /* Permite posicionar o botão e o iframe adequadamente */
-}
 
 #demo-button-container {
-    margin-bottom: 10px; /* Espaço abaixo do botão reduzido */
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 button {
-    background-color: #FF9A00; /* Cor de fundo do botão */
-    color: white; /* Cor do texto do botão */
-    border: none; /* Sem borda */
-    border-radius: 8px; /* Bordas arredondadas */
-    padding: 12px 24px; /* Aumenta o padding para conforto */
-    font-size: 18px; /* Tamanho da fonte */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave para a cor do botão */
+    background-color: #0071e3;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 28px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-    background-color: #e68a00; /* Cor do botão ao passar o mouse */
-    transform: translateY(-2px); /* Leve elevação do botão */
+    background-color: #005bb5;
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.4);
+    transform: translateY(-2px); 
 }
 
+
 .iframe-container {
-    width: 100%; /* Ocupa 100% da largura do container pai */
-    max-width: 375px; /* Largura máxima de um smartphone */
-    height: 667px; /* Altura padrão de um smartphone */
-    border: 2px solid #FF9A00; /* Borda para destacar o iframe */
-    border-radius: 15px; /* Cantos arredondados */
-    overflow: hidden; /* Para esconder barras de rolagem */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar destaque */
-    margin: 0 auto; /* Centraliza o iframe */
+    display: none;
+    position: relative;
+    width: 400px;
+    height: 800px;
+    border-radius: 40px;
+    overflow: hidden;
+    border: 16px solid #333;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+    transition: transform 0.4s ease;
+}
+
+.iframe-container::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #222;
+    border-radius: 50%;
+}
+
+
+
+.home-button:active {
+    background-color: #555;
+    transform: scale(0.95); 
+}
+
+.iframe-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
 }
 
 iframe {
     width: 100%;
     height: 100%;
-    border: none; /* Remove a borda padrão do iframe */
+    border: none;
+    border-radius: 25px;
+}
+
+.shutdown-screen {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9); 
+    color: white; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 24px;
+    text-align: center;
+    z-index: 9999; 
+    opacity: 0; 
+    transition: opacity 0.5s ease;
+}
+
+.shutdown-screen.active {
+    opacity: 1;
+}
+
+.blackout {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+background-color: black;
+    z-index: 100; 
+}
+
+
+.home-button {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 40px;
+    left: 45%;
+    transform: translateY(50%);
+    background-color: #333;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 101; 
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 
 
+.home-button:active {
+    transform: translateY(50%) scale(0.95);
+    background-color: #555;
+}
+#turning-on-message {
+    color: white;
+    font-size: 24px;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 102; 
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+}
+
 
 </style>
 <script>
-    const video = document.getElementById('presentation-video');
-    const demoButton = document.getElementById('demo-button');
-    const iframeContainer = document.getElementById('iframe-container');
+    document.getElementById('home-button').onclick = function() {
+            window.parent.document.getElementById('app-iframe').src = 'appsite.html'; 
+        };
+let holdTimeout;
+let isShutdown = false; 
 
-    video.addEventListener('ended', () => {
-        demoButton.style.display = 'block'; // Exibe o botão ao final do vídeo
+function startHold() {
+    if (isShutdown) return; 
+    holdTimeout = setTimeout(() => {
+      
+        const shutdownScreen = document.getElementById('shutdown-screen');
+        shutdownScreen.style.display = 'flex'; 
+        shutdownScreen.classList.add('active'); 
+        isShutdown = true; 
+
+        
+        setTimeout(() => {
+            shutdownScreen.style.display = 'none'; 
+            document.getElementById('blackout-screen').style.display = 'block'; 
+        }, 2000); 
+    }, 2000);
+}
+
+function endHold() {
+    clearTimeout(holdTimeout); 
+}
+
+
+function turnOn() {
+    if (!isShutdown) return; 
+   
+    document.getElementById('blackout-screen').style.display = 'none'; 
+    const shutdownScreen = document.getElementById('shutdown-screen');
+    shutdownScreen.style.display = 'none'; 
+    isShutdown = false; 
+}
+
+
+document.getElementById('home-button').addEventListener('mousedown', turnOn);
+
+
+
+
+
+
+
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const demoButton = document.getElementById("demo-button");
+        const iframeContainer = document.querySelector(".iframe-container");
+
+  
+        demoButton.style.display = "block";
+
+
+        demoButton.addEventListener("click", function () {
+            iframeContainer.style.display = "block";
+            demoButton.style.display = "none";
+        });
     });
 
-    demoButton.addEventListener('click', () => {
-        iframeContainer.style.display = 'block'; // Exibe o iframe ao clicar no botão
-        demoButton.style.display = 'none'; // Esconde o botão após o clique
-    });
+
+    function goHome() {
+        const iframe = document.querySelector(".iframe-container iframe");
+        iframe.src = "appsite.html";
+    }
 </script>
