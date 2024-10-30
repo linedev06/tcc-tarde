@@ -134,10 +134,16 @@
                         Ligando...
                     </div>
                 </div>
-                <div class="qr-code-container" style="display: none;">
-                    <img src="img/qrcode_linedev06.github.io.png" alt="QR Code" width="200" />
+                <div class="qr-code-container" style="display: none; align-items: center; justify-content: space-between;">
+                    <div style="margin-right: 20px; padding-bottom: 20px;">
+                        <h2>Deseja instalar o nosso app?</h2>
+                    </div>
+                    <div style="width: 210px; border: 5px solid #ff9a00; border-radius: 10px;height: 210px;   margin-left: 150px;">
+                        <img src="img/qrcode_linedev06.github.io.png" alt="QR Code" width="200" />
+                    </div>
                 </div>
-            </div>
+                
+            
         </section>
         
         
@@ -605,8 +611,8 @@ button:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     background-color: #ffffff;
     transition: transform 0.4s ease;
-    margin-right: 100px;
-    margin-left: 0px;
+
+    margin-left: 500px;
 }
 
 .iframe-container::before {
@@ -791,13 +797,17 @@ iframe {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0px;
 }
 
 
 .qr-code-container {
     width: 30%;
-    text-align: end;
+    text-align: center;
+    margin-right: 290px;
+
 }
+
 
 .hidden {
     display: none;
